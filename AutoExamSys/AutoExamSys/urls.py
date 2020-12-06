@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from student import views
+from SystemModel import views
 
 urlpatterns = [
     #管理员登陆
     path('admin/', admin.site.urls),
     #默认访问首页
     url(r'^$',views.index),
+    url(r'^studentLogin/',views.studentLogin),
+    url(r'^teacherLogin/',views.teacherLogin),
 ]
