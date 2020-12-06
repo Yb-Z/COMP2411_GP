@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'AutoExamSys.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["/Users/zyb/Desktop/Class/comp2411/COMP2411_GP/AutoExamSys/templatates"],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,11 +78,11 @@ WSGI_APPLICATION = 'AutoExamSys.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'onlineExam',#使用数据库的名称
-        'USER':'root',#用户名
-        'PASSWORD':'a1b2c3d4',#密码
-        'HOST':'127.0.0.1',#地址
-        'PORT':'3306'#端口号
+        'NAME': 'onlineExam',   # 使用数据库的名称
+        'USER':'root',          # 用户名
+        'PASSWORD':'a1b2c3d4',  # 密码
+        'HOST':'127.0.0.1',     # 地址
+        'PORT':'3306'           # 端口号
     }
 }
 
@@ -123,6 +124,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS=[
-    "/Users/zyb/Desktop/Class/comp2411/COMP2411_GP/AutoExamSys/static",
+STATICFILES_DIRS = [
+    str(BASE_DIR) + 'static',
 ]
