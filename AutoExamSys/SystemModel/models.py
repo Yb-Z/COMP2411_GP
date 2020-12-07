@@ -20,7 +20,7 @@ class Student(models.Model):
     major=models.CharField('stuMajor',max_length=50)
 
     class Meta:
-        db_table='student'
+        db_table='Student'
         verbose_name='Student'
         verbose_name_plural=verbose_name
     def __str__(self):
@@ -45,7 +45,7 @@ class Teacher(models.Model):
     dept=models.CharField('Department',max_length=100)
 
     class Meta:
-        db_table='teacher'
+        db_table='Teacher'
         verbose_name='Teacher'
         verbose_name_plural=verbose_name
     def __str__(self):
@@ -68,7 +68,7 @@ class Subject(models.Model):
     year=models.IntegerField('year')
 
     class Meta:
-        db_table='subject'
+        db_table='Subject'
         verbose_name='Subject'
         verbose_name_plural=verbose_name
     def __str__(self):
@@ -113,7 +113,7 @@ class Class(models.Model):
     tid=models.ForeignKey('Teacher',on_delete=models.CASCADE)
 
     class Meta:
-        db_table='class'
+        db_table='Class'
         verbose_name='Class'
         verbose_name_plural=verbose_name
     def __str__(self):
@@ -134,7 +134,7 @@ class Take(models.Model):
     classID=models.ForeignKey('Class',on_delete=models.CASCADE)
 
     class Meta:
-        db_table='take'
+        db_table='Take'
         verbose_name='Take'
         verbose_name_plural=verbose_name
         unique_together=("stuID","classID")
@@ -161,7 +161,7 @@ class Paper(models.Model):
     classID=models.ForeignKey('Class',on_delete=models.CASCADE)
 
     class Meta:
-        db_table='paper'
+        db_table='Paper'
         verbose_name='Paper'
         verbose_name_plural=verbose_name
     def __str__(self):
@@ -184,7 +184,7 @@ class Question(models.Model):
     optional=models.BooleanField('optional',default=True)
 
     class Meta:
-        db_table='question'
+        db_table='Question'
         verbose_name='Questions'
         verbose_name_plural=verbose_name
     def __str__(self):
@@ -203,7 +203,7 @@ class Question_SA(models.Model):
     qid=models.ForeignKey('Question', on_delete=models.CASCADE)
 
     class Meta:
-        db_table='question_sa'
+        db_table='Question_sa'
         verbose_name='Question_SA'
         verbose_name_plural=verbose_name
     def __str__(self):
@@ -225,7 +225,7 @@ class Contain(models.Model):
     qid=models.ForeignKey('Question',on_delete=models.CASCADE)
     pid=models.ForeignKey('Paper',on_delete=models.CASCADE)
     class Meta:
-        db_table='contain'
+        db_table='Contain'
         verbose_name='Contain'
         verbose_name_plural=verbose_name
     def __str__(self):
