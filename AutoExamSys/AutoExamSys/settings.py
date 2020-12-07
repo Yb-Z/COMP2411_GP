@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'AutoExamSys.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'onlineExam',   # 使用数据库的名称
-        'USER':'root',          # 用户名
-        'PASSWORD':'a1b2c3d4',  # 密码
-        'HOST':'127.0.0.1',     # 地址
-        'PORT':'3306'           # 端口号
+        'NAME':     'onlineExam',   # 使用数据库的名称
+        'USER':     'root',         # 用户名
+        'PASSWORD': 'a1b2c3d4',     # 密码
+        'HOST':     '127.0.0.1',    # 地址
+        'PORT':     '3306'          # 端口号
     }
 }
 
@@ -124,6 +124,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    str(BASE_DIR) + 'static',
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
