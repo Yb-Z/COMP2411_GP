@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../static/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../static/jquery-3.3.1.min.js"></script>
+    <script src="../static/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+    <link href="../static/css/index.css" rel="stylesheet">
+    <title>Student Home</title>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-sm bg-light navbar-light ">
+      <a href="https://www.polyu.edu.hk" target="view_window"><span class="navbar-brand">
+          <img src="../static/img/polyu.gif" width="244" height="48" alt="PolyU Logo" style="vertical-align: -4px;">
+      </span>
+      </a>
+      <a href="https://www.polyu.edu.hk" target="view_window"><span class="navbar-brand">
+          <img src="../static/img/estudent.png" width="244" height="48" alt="PolyU Logo" style="vertical-align: -4px;">
+      </span>
+      </a>
+  </nav>
+
+  <div class="jumbotron big-banner" style="height: 1000px; padding-top: 150px">
+      
+      <div class="container">
+        <h1><font face="Times New Roman" color="SlateGray">Welcome to your home page!</font></h1>
+        <!-- Nav pills -->
+        <ul class="nav nav-pills" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="pill" href="#home">Personal information</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#menu1">Exam information</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="pill" href="#menu2">Exam result</a>
+          </li>
+        </ul>
+      </div>
+    
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div id="home" class="container tab-pane active"><br>
+          <h3>Personal information</h3>
+
+        <table class="table">
+
+        <tbody>
+          <tr>
+            <td>Student ID</td>
+            <td>{{ student.id }}</td>
+
+          </tr>
+          <tr class="table-primary">
+            <td>Name</td>
+            <td>{{ student.name }}</td>
+
+          </tr>
+          <tr class="table-success">
+            <td>Gender</td>
+            <td>{{ student.gender }}</td>
+
+          </tr>
+          <tr class="table-danger">
+            <td>Department</td>
+            <td>{{ student.dept }}</td>
+
+          </tr>
+
+          <tr class="table-success">
+            <td>Major</td>
+            <td>{{ student.major }}</td>
+
+          </tr>
+
+          <tr class="table-warning">
+            <td>Email</td>
+            <td>{{ student.email }}</td>
+
+        </tbody>
+        </table>
+      </div>
+
+      <div id="menu1" class="container tab-pane fade"><br>
+        <h3>Exam information</h3>
+        <p></p>
+        <table class="table">
+          <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#   Iterate over paper #}
+            {% for paper1 in paper %}
+            <tr class="table-info">
+                  <td>{{ student.id }}</td>
+                  <td>{{ student.name }}</td>
+                  <td>{{ paper1.subject }}{{ paper2.subject }}</td>
+                  <td>{{ paper1.examtime }} {{ paper2.examtime }}</td>
+                  <td>
+                      <a href="/startExam/?sid={{ student.id }}&subject={{ paper1.subject }}">
+                      <button class="btn btn-primary" id="toExam+{{ paper1.subject }}">Start Exam</button>
+                    </a>
+                  </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div id="menu2" class="container tab-pane fade"><br>
+        <h3>Exam result</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for grade1 in grade %}
+                  <tr class="table-primary">
+                  <td>{{ student.name }}</td>
+                  <td>{{ grade1.subject }}</td>
+                  <td>{{ grade1.grade }}</td>
+
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+      </div>
+    
+  </div>
+  
+</body>
+
+<script>
+    $("#toExam+{{ paper1.subject }}").click(function () {
+
+    });
+</script>
+</html>

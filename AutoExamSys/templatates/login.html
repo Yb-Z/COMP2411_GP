@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../static/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../static/jquery-3.3.1.min.js"></script>
+    <script src="../static/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+    <link href="../static/css/index.css" rel="stylesheet">
+    <title>Online Exam System</title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm bg-light navbar-light ">
+        <a href="https://www.polyu.edu.hk" target="view_window"><span class="navbar-brand">
+            <img src="../static/img/polyu.gif" width="244" height="48" alt="PolyU Logo" style="vertical-align: -4px;">
+        </span>
+        </a>
+        <a href="https://www.polyu.edu.hk" target="view_window"><span class="navbar-brand">
+            <img src="../static/img/estudent.png" width="244" height="48" alt="PolyU Logo" style="vertical-align: -4px;">
+        </span>
+        </a>
+
+    </nav>
+
+    <div class="jumbotron big-banner" style="height: 1000px; padding-top: 150px">
+        <div class="container">
+            <h1><font face="Times New Roman" color="SlateGray">Welcome to the Online Exam System Login!</font></h1>
+            <button data-target="#stuModal" data-toggle="modal" class="btn btn-primary">Student login</button>
+            <button data-target="#teaModal" data-toggle="modal" class="btn btn-primary">Teacher login</button>  
+            <h3><font face="Times New Roman" color="SlateGray">--- The video below 👇 is a demo of this website</font></h3>
+            <!-- Nav pills -->
+            <video width="1000" height="600" controls="controls" autoplay="autoplay">
+                <source src="../static/video/MrMA.mp4" type="video/mp4">
+            </video>
+
+        </div>
+    </div>
+    <!-- Tab panes -->
+
+    {#学生登录的模态对话框#}
+    <div class="modal fade" tabindex="-1" role="dialog" id="stuModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Student login</h4>
+                </div>
+                <form class="form-horizontal" action="/studentLogin/" method="post">
+                <div class="modal-body">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Student ID</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="id" placeholder="Input student ID">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="addr" class="col-sm-3 control-label">Password</label>
+                            <div class="col-sm-9">
+                                <!--
+                                <textarea id="addr" class="form-control" rows="3"></textarea>
+                                -->
+                                <input type="password" class="form-control" name="password" placeholder="Input password">
+                            </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    {#老师登录的模态对话框#}
+    <div class="modal fade" tabindex="-1" role="dialog" id="teaModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Teacher login</h4>
+                </div>
+                <form class="form-horizontal" action="/teacherLogin/" method="post">
+                <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-3 control-label">Teacher ID</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="id" placeholder="Input teacher ID">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="addr" class="col-sm-3 control-label">Password</label>
+                            <div class="col-sm-9">
+                                <!--
+                                <textarea id="addr" class="form-control" rows="3"></textarea>
+                                -->
+                                <input type="password" name="password" placeholder="Input password">
+                            </div>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+                </form>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+</body>
+
+</html>

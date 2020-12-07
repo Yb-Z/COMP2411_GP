@@ -261,4 +261,16 @@
 
 .big-banner {
     background-image: url("../img/skill2.jpg");
+    font-family: Times New Roman; 
+}
+
+.container video {
+    display:block;
+    margin:0 auto; /* 水平居中 */
+    position: relative; /* 垂直居中 */
+} 
+ 
+.container h1 font {
+    text-align:center;
+    margin:0 auto;
 }
