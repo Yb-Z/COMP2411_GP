@@ -69,7 +69,7 @@ class Subject(models.Model):
 
     class Meta:
         db_table='subject'
-        verbose_name='Subjects'
+        verbose_name='Subject'
         verbose_name_plural=verbose_name
     def __str__(self):
         return self.id;
@@ -85,13 +85,14 @@ CREATE TABLE TeachSubj
 );
 '''
 class TeachSubj(models.Model):
-    subjID=models.ForeignKey('Subject',on_delete=models.CASCADE,to_field=Subject.id,primary_key=True)
-    tid=models.ForeignKey('Teacher',on_delete=models.CASCADE,to_field=Teacher.id,primary_key=True)
+    subjID=models.ForeignKey('Subject',on_delete=models.CASCADE)
+    tid=models.ForeignKey('Teacher',on_delete=models.CASCADE)
 
     class Meta:
-        db_table='subject'
-        verbose_name='Subjects'
+        db_table='TeachSubj'
+        verbose_name='TeachSubj'
         verbose_name_plural=verbose_name
+        unique_together=("subjID","tid")
     def __str__(self):
         return self.id;
 
@@ -108,8 +109,8 @@ CREATE TABLE Class_
 '''
 class Class(models.Model):
     id=models.CharField('classID',max_length=16,primary_key=True)
-    subjID=models.ForeignKey('Subject',on_delete=models.CASCADE,to_field=Subject.id)
-    tid=models.ForeignKey('Teacher',on_delete=models.CASCADE,to_field=Teacher.id)
+    subjID=models.ForeignKey('Subject',on_delete=models.CASCADE)
+    tid=models.ForeignKey('Teacher',on_delete=models.CASCADE)
 
     class Meta:
         db_table='class'
@@ -129,13 +130,14 @@ CREATE TABLE Take
 );
 '''
 class Take(models.Model):
-    stuID=models.ForeignKey('Student',on_delete=models.CASCADE,to_field=Student.id,primary_key=True)
-    classID=models.ForeignKey('Class',on_delete=models.CASCADE,to_field=Class.id,primary_key=True)
+    stuID=models.ForeignKey('Student',on_delete=models.CASCADE)
+    classID=models.ForeignKey('Class',on_delete=models.CASCADE)
 
     class Meta:
-        db_table='class'
-        verbose_name='Class'
+        db_table='take'
+        verbose_name='Take'
         verbose_name_plural=verbose_name
+        unique_together=("stuID","classID")
     def __str__(self):
         return self.id;
 
@@ -156,7 +158,7 @@ class Paper(models.Model):
     date=models.DateTimeField(auto_now_add=True)
     startTime=models.CharField('startTime',max_length=8)
     duration=models.CharField('duration',max_length=9)
-    classID=models.ForeignKey('Class',on_delete=models.CASCADE,to_field=Class.id)
+    classID=models.ForeignKey('Class',on_delete=models.CASCADE)
 
     class Meta:
         db_table='paper'
@@ -198,11 +200,11 @@ CREATE TABLE Question_SA
 '''
 class Question_SA(models.Model):
     SAContent=models.CharField('SAContent',max_length=2000)
-    qid=models.ForeignKey('Question', on_delete=models.CASCADE,to_field=Question.id)
+    qid=models.ForeignKey('Question', on_delete=models.CASCADE)
 
     class Meta:
-        db_table='question'
-        verbose_name='Questions'
+        db_table='question_sa'
+        verbose_name='Question_SA'
         verbose_name_plural=verbose_name
     def __str__(self):
         return self.id;
@@ -220,15 +222,11 @@ CREATE TABLE Contain
 '''
 class Contain(models.Model):
     csn=models.IntegerField('CSN')
-    qid=models.ForeignKey('Question',on_delete=models.CASCADE,to_field=Question.id,primary_key=True)
-    pid=models.ForeignKey('Paper',on_delete=models.CASCADE,to_field=Paper.id,primary_key=True)
+    qid=models.ForeignKey('Question',on_delete=models.CASCADE)
+    pid=models.ForeignKey('Paper',on_delete=models.CASCADE)
     class Meta:
-        db_table='question'
-        verbose_name='Questions'
+        db_table='contain'
+        verbose_name='Contain'
         verbose_name_plural=verbose_name
     def __str__(self):
         return self.id;
-
-'''
-
-'''
