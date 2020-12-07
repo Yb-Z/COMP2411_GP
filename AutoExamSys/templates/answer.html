@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="../static/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="../static/jquery-3.3.1.min.js"></script>
+	<script src="../static/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+	<link href="../static/css/index.css" rel="stylesheet">
+	<title>Exam</title>
+	<script type="text/javascript">
+		var 
+	</script>
+	<div type="hidden">
+		<a type="hidden" id="hr">{{ countdown.hr }}</a>
+		<a type="hidden" id="min">{{ countdown.min }}</a>
+		<a type="hidden" id="sec">{{ countdown.sec }}</a>
+	</div>
+</head>
+
+<body onLoad="startCountDown">
+
+	<nav class="navbar navbar-expand-sm bg-light navbar-light">
+		<a target="view_window">
+			<span class="navbar-brand">
+				<img src="../static/img/polyu.gif" height="48" alt="PolyU Logo" style="vertical-align: -4px;">
+			</span>
+		</a>
+		<a target="view_window">
+			<span class="navbar-brand">
+				<img src="../static/img/estudent.png" height="48" alt="PolyU Logo" style="vertical-align: -4px;">
+			</span>
+		</a>
+	</nav>
+
+	<div class="main">
+		<!--nr start-->
+		<div class="test_main">
+			<div class="nr_left">
+				<div class="test">
+					<form action="/calGrade/" method="post">
+						<input type="hidden" name="sid" value="{{ student.id }}">
+						<input type="hidden" name="subject" value="{{ subject }}">
+						<div class="test_title">
+							<p class="test_time">
+								<i class="icon iconfont">&#xe6fb;</i><b class="alt-1">01:40</b>
+							</p>
+							<font><input type="submit" name="tijiao" value="交卷"></font>
+						</div>
+
+						<div class="test_content">
+							<div class="test_content_title">
+								<h2>单选题</h2>
+								<p>
+									<span>共</span><i class="content_lit">10</i><span>题，</span>
+									<span>合计</span><i class="content_fs">10</i><span>分</span>
+								</p>
+							</div>
+						</div>
+						<div class="test_content_nr">
+							<ul>
+								{% for paper1 in paper %} {% for test in paper1.pid.all %}
+								<li id="{{ forloop.counter }}">
+									<div class="test_content_nr_tt">
+										<i>{{ forloop.counter }}</i><span>({{ test.score }}分)</span>
+										<font>{{ test.title }}</font>
+
+									</div>
+									<div class="test_content_nr_main">
+										<ul>
+											<li class="option">
+												<input type="radio" class="radioOrCheck" name="{{ test.id }}" value="A" />
+												<label>A.<p class="ue" style="display: inline;">{{ test.optionA }}</p>
+												</label>
+											</li>
+
+											<li class="option">
+												<input type="radio" class="radioOrCheck" name="{{ test.id }}" value="B" />
+												<label>
+													B.<p class="ue" style="display: inline;">{{ test.optionB }}</p>
+												</label>
+											</li>
+
+											<li class="option">
+												<input type="radio" class="radioOrCheck" name="{{ test.id }}" value="C" />
+												<label>
+													C.<p class="ue" style="display: inline;">{{ test.optionC }}</p>
+												</label>
+											</li>
+
+											<li class="option">
+												<input type="radio" class="radioOrCheck" name="{{ test.id }}" value="D" />
+												<label>
+													D.<p class="ue" style="display: inline;">{{ test.optionD }}</p>
+												</label>
+											</li>
+										</ul>
+									</div>
+								</li>
+								{% endfor %}
+								{% endfor %}
+							</ul>
+						</div>
+					</form>
+				</div>
+			</div>
+
+		</div>
+		<!--nr end-->
+	</div>
+	<div class="footer" style="position: fixed; right: 40px; bottom: 22px; ">
+		
+		<a id="submit" class="card" style="color: red; padding: 6px;" action="/submit"><b>SUBMIT</b></a>
+	</div>
+
+
+	
+</body>
+
+<script>
+	$("#toExam+{{ paper1.subject }}").click(function() {
+
+	});
+</script>
+</html>

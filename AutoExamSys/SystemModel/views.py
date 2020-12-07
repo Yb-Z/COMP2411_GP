@@ -47,3 +47,24 @@ def teacherLogin(request):
 
 def logout(request):
     return render(request, "./login.html")
+
+def showQuestion(request):
+    if request.method=='POST':
+        # 获取表单信息
+        TODO:
+        paper=request.POST.get('paperID')
+        password=request.POST.get('password')
+        print("id",stuId,"password",password)
+        '''
+        select student from students
+        where id=stuId
+        '''
+        # 通过学号获取该学生实体
+        student=models.Student.objects.get(id=stuId)
+        print(student)
+        if password==student.password:  #登录成功
+            return render(request,'./student.html',{'student':student})
+        else:
+            return render(request, './student.html', {'message': 'Wrong Password!'})
+
+def nextQuestion(request):
