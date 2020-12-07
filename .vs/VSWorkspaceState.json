@@ -1,6 +1,15 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\AutoExamSys",
+    "\\AutoExamSys\\AutoExamSys",
+    "\\AutoExamSys\\login_template",
+    "\\AutoExamSys\\static",
+    "\\AutoExamSys\\static\\css",
+    "\\AutoExamSys\\static\\img",
+    "\\AutoExamSys\\SystemModel",
+    "\\AutoExamSys\\templates"
   ],
+  "SelectedNode": "\\AutoExamSys\\AutoExamSys\\urls.py",
   "PreviewInSolutionExplorer": false
 }

@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
-from SystemModel import models
+# from SystemModel import models
+from AutoExamSys.SystemModel import models
 from django.http import HttpResponse
 from django.contrib.auth import logout
 # Create your views here.
@@ -43,3 +44,8 @@ def getExamPaper(request):
         timeInSec = 3600 * int(time[0:2]) + 60 * int(time[3:5]) + int(time[6:])  # 考试时间转成秒数
         data = {'timeInSec': timeInSec} # TODO: 还有，记得加
         return render(request, './answer.html', data)
+
+def startExam(request):
+    student=models.Student.objects.get(request.GET.get('sid'))
+    paper=models.Paper.objects.get(request.GET.get('paper'))
+    

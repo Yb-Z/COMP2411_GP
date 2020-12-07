@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^$',views.login),
     url(r'^studentLogin/',views.studentLogin),
     url(r'^teacherLogin/',views.teacherLogin),
+    url(r'^startExam/$',views.startExam),
 ]
