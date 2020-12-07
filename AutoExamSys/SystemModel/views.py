@@ -43,4 +43,7 @@ def teacherLogin(request):
         if password==teacher.password:  #登录成功
             return render(request,'./teacher.html',{'teacher':teacher})
         else:
-            return render(request,'./teacher.html',{'message':'Wrong Password!'})
+        teacher = models.Teacher.objects.get(id=teaId)'message':'Wrong Password!'})
+
+def logout(request):
+    return render(request, "./login.html")
