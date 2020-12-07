@@ -24,36 +24,31 @@
       </a>
 
       <ul class="navbar-nav">
+
+
       </ul>
   </nav>
-  <div class="jumbotron big-banner" style="height: 1000px; padding-top: 150px">
+  <div class="jumbotron big-banner" style="height: auto; padding-top: 150px">
   <div class="container">
     <div class="card" style="height: auto;">
-      <a class="card-header" style="color: red; text-align: center;"><b>Welcome to Online Exam System!</b></a>
+      <a class="card-header" style="color: red; text-align: center;"><b>DEMO</b></a>
       <div class="card-body" style="text-align: center;">
-        <br>
-        <a>Please Choose Your Identity for Login</a><br>
-        <a style="vertical-align: 20px;"></a>
-        <button data-target="#stuModal" data-toggle="modal" class="btn btn-primary">Student Login</button>
-        <button data-target="#teaModal" data-toggle="modal" class="btn btn-primary">Teacher Login</button><br>
-        <a style="vertical-align: 4px;"></a><br>
-        <button class="btn btn-primary" href="/demo" style="text-align: end;">Video Demonstration</button>
-        <br><br>
+        <video width="100%" controls="controls" autoplay="autoplay">
+          <source src="../static/video/MrMA.mp4" type="video/mp4">
+        </video>
+        
       </div>
-      <div class="card-footer" style="font-size: 12px;">
-        <a class="nav-link" href="/admin">administrator</a>
+      <div class="card-footer" style="font-size: 12px; text-align: end;" >
+        <a class="nav-link" href="/">back</a>
       </div>
     </div>
     <br>
-
-    <div id="logout" class="card" style="position: fixed; right: 40px; top: 22px; padding: 6px;">
-            <a style="color: red;" href="/logout/"><b>LOGOUT</b></a>
-        </div>
-    <div id="footer" style="position: fixed; right: 40px; bottom: 22px; text-align: end; font-size: 12px; color: #FFE680;">
-      Online Exam System Developed by Group 20: MAN Furui, WANG Meng, XING Shiji, ZHANG Yubo<br>
-      COMP2411 DataBase Systems, Year2020 Semester1, The Hong Kong Polytechnic University<br>
-    </div>
+    
   </div>  
+  <div style="position: fixed; right: 40px; bottom: 40px; text-align: end; font-size: 12px; color: white;">
+    Online Exam System Developed by Group 20: MAN Furui, WANG Meng, XING Shiji, ZHANG Yubo<br>
+    COMP2411 DataBase Systems, Year2020 Semester1, The Hong Kong Polytechnic University<br>
+  </div>
   </div>
 
   <!--{#学生登录的模态对话框#}-->
@@ -66,7 +61,7 @@
                       <span aria-hidden="true">&times;</span>
                   </button>
               </div>
-              <form class="form-horizontal" action="" method="post">
+              <form class="form-horizontal" action="/studentLogin/" method="post">
               <div class="modal-body">
 
                       <div class="form-group">
