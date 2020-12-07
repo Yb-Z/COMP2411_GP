@@ -1,6 +1,5 @@
 from django.db import models
-# Create your models here.
-# 为性别,学院 指定备选字段
+
 '''
 CREATE TABLE Student
 (
@@ -137,7 +136,32 @@ class Take(models.Model):
         db_table='Take'
         verbose_name='Take'
         verbose_name_plural=verbose_name
-        unique_together=("stuID","classID")
+        unique_together=(("stuID","classID"))
+    def __str__(self):
+        return self.id;
+
+'''
+CREATE TABLE GetResult
+(
+  grade CHAR(1) NOT NULL,
+  comment VARCHAR(2000) NOT NULL,
+  stuID CHAR(9) NOT NULL,
+  subjID VARCHAR(8) NOT NULL,
+  PRIMARY KEY (stuID, subjID),
+  FOREIGN KEY (stuID) REFERENCES Student(stuID),
+  FOREIGN KEY (subjID) REFERENCES Subject(subjID)
+);
+'''
+class GetResult(models.Model):
+    grade=models.CharField('Grade',max_length=1)
+    comment=models.CharField('Comment',max_length=2000)
+    stuID=models.ForeignKey('Student',on_delete=models.CASCADE)
+    subjID=models.ForeignKey('Subject',on_delete=models.CASCADE)
+    class Meta:
+        db_table='GetResult'
+        verbose_name='GetResult'
+        verbose_name_plural=verbose_name
+        unique_together=(("stuID","subjID"))
     def __str__(self):
         return self.id;
 
