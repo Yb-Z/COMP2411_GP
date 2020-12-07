@@ -60,16 +60,6 @@
             <td>{{ student.name }}</td>
 
           </tr>
-          <tr class="table-success">
-            <td>Gender</td>
-            <td>{{ student.gender }}</td>
-
-          </tr>
-          <tr class="table-danger">
-            <td>Department</td>
-            <td>{{ student.dept }}</td>
-
-          </tr>
 
           <tr class="table-success">
             <td>Major</td>
@@ -92,27 +82,34 @@
           <thead>
             <tr>
                 <th>Student ID</th>
-                <th>Name</th>
-                <th>Subject</th>
-                <th>Time</th>
+                <th>Exam ID</th>
+                <th>Subject/Class</th>
+                <th>Date</th>
+                <th>Start time</th>
+                <th>Duration</th>
+                <th>Start Exam</th>
             </tr>
           </thead>
+
           <tbody>
             {#   Iterate over paper #}
-            {% for paper1 in paper %}
+            {% for paper in papers %}
             <tr class="table-info">
                   <td>{{ student.id }}</td>
-                  <td>{{ student.name }}</td>
-                  <td>{{ paper1.subject }}{{ paper2.subject }}</td>
-                  <td>{{ paper1.examtime }} {{ paper2.examtime }}</td>
+                  <td>{{ paper.id }}</td>
+                  <td>{{ paper.title }}</td>
+                  <td>{{ paper.date }}</td>
+                  <td>{{ paper.startTime }}</td>
+                  <td>{{ paper.duration }}</td>
                   <td>
-                      <a href="/startExam/?sid={{ student.id }}&subject={{ paper1.subject }}">
-                      <button class="btn btn-primary" id="toExam+{{ paper1.subject }}">Start Exam</button>
+                    <a href="/startExam/?sid={{ student.id }}&paper={{ paper.id }}">
+                      <button name="btn btn-primary" type="submit" value="startExam">Start Exam</button>
                     </a>
                   </td>
-              </tr>
+            </tr>
             {% endfor %}
           </tbody>
+
         </table>
       </div>
 
@@ -123,16 +120,17 @@
               <tr>
                 <th>Name</th>
                 <th>Subject</th>
-                <th>Result</th>
+                <th>Grade</th>
+                <th>Comment</th>
               </tr>
             </thead>
             <tbody>
-              {% for grade1 in grade %}
+              {% for result in results %}
                   <tr class="table-primary">
                   <td>{{ student.name }}</td>
-                  <td>{{ grade1.subject }}</td>
-                  <td>{{ grade1.grade }}</td>
-
+                  <td>{{ result.subjId }}</td>
+                  <td>{{ result.grade }}</td>
+                  <td>{{ result.comment }}</td>
                 </tr>
               {% endfor %}
             </tbody>
@@ -147,9 +145,4 @@
   
 </body>
 
-<script>
-    $("#toExam+{{ paper1.subject }}").click(function () {
-
-    });
-</script>
 </html>
