@@ -43,22 +43,19 @@ def teacherLogin(request):
         if password==teacher.password:  #登录成功
             return render(request,'./teacher.html',{'teacher':teacher})
         else:
-        teacher = models.Teacher.objects.get(id=teaId)'message':'Wrong Password!'})
+            pass
 
 def logout(request):
     return render(request, "./login.html")
-
+'''
 def showQuestion(request):
     if request.method=='POST':
         # 获取表单信息
-        TODO:
+        #TODO:
         paper=request.POST.get('paperID')
         password=request.POST.get('password')
         print("id",stuId,"password",password)
-        '''
-        select student from students
-        where id=stuId
-        '''
+    
         # 通过学号获取该学生实体
         student=models.Student.objects.get(id=stuId)
         print(student)
@@ -68,3 +65,5 @@ def showQuestion(request):
             return render(request, './student.html', {'message': 'Wrong Password!'})
 
 def nextQuestion(request):
+    pass
+'''
