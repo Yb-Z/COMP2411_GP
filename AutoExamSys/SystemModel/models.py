@@ -1,23 +1,23 @@
 from django.db import models
-
 # Create your models here.
 # 为性别,学院 指定备选字段
-GENDER=(
-    ('Male','Male'),
-    ('Female','Female'),
-)
-DEPT=(
-    ('Department of Computing','Department of Computing'),
-)
-
+'''
+CREATE TABLE Student
+(
+  stuID CHAR(9) NOT NULL,
+  stuName VARCHAR(100) NOT NULL,
+  stuPW VARCHAR(25) NOT NULL,
+  stuEmail VARCHAR(100) NOT NULL,
+  stuMajor VARCHAR(100) NOT NULL,
+  PRIMARY KEY (stuID)
+);
+'''
 class Student(models.Model):
-    id=models.CharField('Student ID',max_length=20,primary_key=True)
-    name=models.CharField('Name',max_length=50)
-    gender=models.CharField('Gender',max_length=8,choices=GENDER,default=None)
-    dept=models.CharField('Department',max_length=50,choices=DEPT,default=None)
-    major=models.CharField('Major',max_length=50,default=None)
-    password=models.CharField('Password',max_length=50,default='111')
-    email=models.EmailField('Email',default=None)
+    id=models.CharField('stuID',max_length=9,primary_key=True)
+    name=models.CharField('stuName',max_length=100)
+    password=models.CharField('stuPW',max_length=25)
+    email=models.EmailField('stuEmail')
+    major=models.CharField('stuMajor',max_length=50)
 
     class Meta:
         db_table='student'
@@ -26,13 +26,23 @@ class Student(models.Model):
     def __str__(self):
         return self.id;
 
+'''
+CREATE TABLE Teacher
+(
+  TID CHAR(9) NOT NULL,
+  TName VARCHAR(100) NOT NULL,
+  TPW VARCHAR(25) NOT NULL,
+  TEmail VARCHAR(100) NOT NULL,
+  TDept VARCHAR(100) NOT NULL,
+  PRIMARY KEY (TID)
+);
+'''
 class Teacher(models.Model):
-    id=models.CharField('Teacher ID',max_length=20,primary_key=True)
-    name=models.CharField('Name',max_length=50)
-    gender=models.CharField('Gender',max_length=8,choices=GENDER,default=None)
-    dept=models.CharField('Department',max_length=50,choices=DEPT,default=None)
-    password=models.CharField('Password',max_length=50,default='111')
-    email=models.EmailField('Email',default=None)
+    id=models.CharField('TID',max_length=9,primary_key=True)
+    name=models.CharField('TName',max_length=100)
+    password=models.CharField('TPW',max_length=25)
+    email=models.EmailField('TEmail')
+    dept=models.CharField('Department',max_length=100)
 
     class Meta:
         db_table='teacher'
@@ -40,3 +50,185 @@ class Teacher(models.Model):
         verbose_name_plural=verbose_name
     def __str__(self):
         return self.id;
+        
+'''
+CREATE TABLE Subject
+(
+  subjID VARCHAR(8) NOT NULL,
+  subjName VARCHAR(100) NOT NULL,
+  semester INT NOT NULL,
+  year INT NOT NULL,
+  PRIMARY KEY (subjID)
+);
+'''
+class Subject(models.Model):
+    id=models.CharField('subjID',max_length=8,primary_key=True)
+    name=models.CharField('subjName',max_length=100)
+    semester=models.IntegerField('semester')
+    year=models.IntegerField('year')
+
+    class Meta:
+        db_table='subject'
+        verbose_name='Subjects'
+        verbose_name_plural=verbose_name
+    def __str__(self):
+        return self.id;
+
+'''
+CREATE TABLE TeachSubj
+(
+  TID CHAR(9) NOT NULL,
+  subjID VARCHAR(8) NOT NULL,
+  PRIMARY KEY (TID, subjID),
+  FOREIGN KEY (TID) REFERENCES Teacher(TID),
+  FOREIGN KEY (subjID) REFERENCES Subject(subjID)
+);
+'''
+class TeachSubj(models.Model):
+    subjID=models.ForeignKey('Subject',on_delete=models.CASCADE,to_field=Subject.id,primary_key=True)
+    tid=models.ForeignKey('Teacher',on_delete=models.CASCADE,to_field=Teacher.id,primary_key=True)
+
+    class Meta:
+        db_table='subject'
+        verbose_name='Subjects'
+        verbose_name_plural=verbose_name
+    def __str__(self):
+        return self.id;
+
+'''
+CREATE TABLE Class_
+(
+  classID VARCHAR(16) NOT NULL,
+  subjID VARCHAR(8) NOT NULL,
+  TID CHAR(9) NOT NULL,
+  PRIMARY KEY (classID),
+  FOREIGN KEY (subjID) REFERENCES Subject(subjID),
+  FOREIGN KEY (TID) REFERENCES Teacher(TID)
+);
+'''
+class Class(models.Model):
+    id=models.CharField('classID',max_length=16,primary_key=True)
+    subjID=models.ForeignKey('Subject',on_delete=models.CASCADE,to_field=Subject.id)
+    tid=models.ForeignKey('Teacher',on_delete=models.CASCADE,to_field=Teacher.id)
+
+    class Meta:
+        db_table='class'
+        verbose_name='Class'
+        verbose_name_plural=verbose_name
+    def __str__(self):
+        return self.id;
+
+'''
+CREATE TABLE Take
+(
+  stuID CHAR(9) NOT NULL,
+  classID VARCHAR(16) NOT NULL,
+  PRIMARY KEY (stuID, classID),
+  FOREIGN KEY (stuID) REFERENCES Student(stuID),
+  FOREIGN KEY (classID) REFERENCES Class(classID)
+);
+'''
+class Take(models.Model):
+    stuID=models.ForeignKey('Student',on_delete=models.CASCADE,to_field=Student.id,primary_key=True)
+    classID=models.ForeignKey('Class',on_delete=models.CASCADE,to_field=Class.id,primary_key=True)
+
+    class Meta:
+        db_table='class'
+        verbose_name='Class'
+        verbose_name_plural=verbose_name
+    def __str__(self):
+        return self.id;
+
+'''
+CREATE TABLE Paper
+(
+  PID CHAR(16) NOT NULL,
+  date_ DATE NOT NULL,
+  startTime CHAR(8) NOT NULL,
+  duration CHAR(9) NOT NULL,
+  classID VARCHAR(16) NOT NULL,
+  PRIMARY KEY (PID),
+  FOREIGN KEY (classID) REFERENCES Class(classID)
+);
+'''
+class Paper(models.Model):
+    id=models.CharField('PID',max_length=16,primary_key=True)
+    date=models.DateTimeField(auto_now_add=True)
+    startTime=models.CharField('startTime',max_length=8)
+    duration=models.CharField('duration',max_length=9)
+    classID=models.ForeignKey('Class',on_delete=models.CASCADE,to_field=Class.id)
+
+    class Meta:
+        db_table='paper'
+        verbose_name='Paper'
+        verbose_name_plural=verbose_name
+    def __str__(self):
+        return self.id;
+
+'''
+CREATE TABLE Question
+(
+  QID INT NOT NULL,
+  Qtype CHAR(2) NOT NULL,
+  Qcontent VARCHAR(2000) NOT NULL,
+  optional INT NOT NULL,
+  PRIMARY KEY (QID)
+);
+'''
+class Question(models.Model):
+    id=models.CharField('QID',max_length=16,primary_key=True)
+    type=models.CharField('Qtype',max_length=2)
+    content=models.CharField('Qcontent',max_length=2000)
+    optional=models.BooleanField('optional',default=True)
+
+    class Meta:
+        db_table='question'
+        verbose_name='Questions'
+        verbose_name_plural=verbose_name
+    def __str__(self):
+        return self.id;
+
+'''
+CREATE TABLE Question_SA
+(
+  SAContent VARCHAR(2000) NOT NULL,
+  QID INT NOT NULL,
+  FOREIGN KEY (QID) REFERENCES Question(QID)
+);
+'''
+class Question_SA(models.Model):
+    SAContent=models.CharField('SAContent',max_length=2000)
+    qid=models.ForeignKey('Question', on_delete=models.CASCADE,to_field=Question.id)
+
+    class Meta:
+        db_table='question'
+        verbose_name='Questions'
+        verbose_name_plural=verbose_name
+    def __str__(self):
+        return self.id;
+
+'''
+CREATE TABLE Contain
+(
+  CSN INT NOT NULL,
+  QID INT NOT NULL,
+  PID CHAR(16) NOT NULL,
+  PRIMARY KEY (QID, PID),
+  FOREIGN KEY (QID) REFERENCES Question(QID),
+  FOREIGN KEY (PID) REFERENCES Paper(PID)
+);
+'''
+class Contain(models.Model):
+    csn=models.IntegerField('CSN')
+    qid=models.ForeignKey('Question',on_delete=models.CASCADE,to_field=Question.id,primary_key=True)
+    pid=models.ForeignKey('Paper',on_delete=models.CASCADE,to_field=Paper.id,primary_key=True)
+    class Meta:
+        db_table='question'
+        verbose_name='Questions'
+        verbose_name_plural=verbose_name
+    def __str__(self):
+        return self.id;
+
+'''
+
+'''
