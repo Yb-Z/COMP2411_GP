@@ -3,8 +3,13 @@ from SystemModel import models
 from django.http import HttpResponse
 from django.contrib.auth import logout
 # Create your views here.
+'''
 def index(request):
     return render(request,"./index.html")
+'''
+def login(request):
+    return render(request,"./login.html")
+
 def studentLogin(request):
     if request.method=='POST':
         # 获取表单信息
@@ -19,9 +24,9 @@ def studentLogin(request):
         student=models.Student.objects.get(id=stuId)
         print(student)
         if password==student.password:  #登录成功
-            return render(request,'./index.html',{'student':student})
+            return render(request,'./student.html',{'student':student})
         else:
-            return render(request,'./index.html',{'message':'Wrong Password!'})
+            return render(request,'./student.html',{'message':'Wrong Password!'})
 def teacherLogin(request):
     if request.method=='POST':
         # 获取表单信息

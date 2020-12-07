@@ -22,7 +22,7 @@ urlpatterns = [
     #管理员登陆
     path('admin/', admin.site.urls),
     #默认访问首页
-    url(r'^$',views.index),
+    url(r'^$',views.login),
     url(r'^studentLogin/',views.studentLogin),
     url(r'^teacherLogin/',views.teacherLogin),
 ]
