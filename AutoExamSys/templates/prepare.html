@@ -34,7 +34,7 @@
     <div class="test_main">
       <div class="nr_left">
         <div class="test">
-          <form id="answers" action="/subExam/" method="post" style="padding: 10px;">
+          <form id="answers" action="/subPrepare/" method="post" style="padding: 10px;">
             <div class="card">
 
               <input type="hidden" name="sid" value="{{ teacher.id }}" />
@@ -49,11 +49,11 @@
                   <h2>Multiple Choice</h2>
                   <p>
                     <span>In total of </span>
-                    <input id="mcnum" name="mcnum" type="number" onchange="expand()" step="1" min="1">
+                    <input id="mcnum" name="mcnum" type="number" onchange='mcexpand()' step="1" min="1">
                     
                     <span> Question(s),</span>
                     <span>Worth </span>
-                    <input id="mcpoint" name="mcpoint" type="number" onchange="expand()" step="1" min="1">
+                    <input id="mcpoint" name="mcpoint" type="number" onchange='mcexpand()' step="1" min="1">
                     <span> Point(s) each</span>
                   </p>
                 </div>
@@ -65,57 +65,31 @@
                   <h2>Fill in Blank</h2>
                   <p>
                     <span>In total of </span>
-                    <input name="fbnum" type="number"><span> Question(s),</span>
+                    <input id="fbnum" name="fbnum" type="number" onchange="fbexpand()" step="1" min="1">
+                    
+                    <span> Question(s),</span>
                     <span>Worth </span>
-                    <input name="fbpoint" type="number">
+                    <input id="fbpoint" name="fbpoint" type="number" onchange="fbexpand()" step="1" min="1">
                     <span> Point(s) each</span>
                   </p>
                 </div>
-                <ul>
-                  {% for question in exam.fb.qs %}
-                  <li id="{{ forloop.counter }}" class="card">
-                    <div class="card-header">
-                      <i>{{ forloop.counter }} </i><span>({{ question.score }} Points) </span>
-                      <b>{{ question.title }}</b>
-                    </div>
-                    <div class="card-body">
-                      {% if question.compulsory == 0 %}
-                      <input type="text" class="form-control" placeholder="Fill in the above blank..." />
-                      {% else %}
-                      <input type="text" class="form-control" placeholder="Fill in the above blank..." required="required" />
-                      {% endif %}
-                    </div>
-                  </li>
-                  {% endfor %}
-                </ul>
+                <span class="fbmerg">
+                </span>
                 <!--问答题-->
                 <div class="card-title">
                   <h2>Q &amp; A</h2>
                   <p>
                     <span>In total of </span>
-                    <input name="mcnum" type="number"><span> Question(s),</span>
+                    <input id="flnum" name="flnum" type="number" onchange="flexpand()" step="1" min="1">
+                    
+                    <span> Question(s),</span>
                     <span>Worth </span>
-                    <input name="mcpoint" type="number">
+                    <input id="flpoint" name="flpoint" type="number" onchange="flexpand()" step="1" min="1">
                     <span> Point(s) each</span>
                   </p>
                 </div>
-                <ul>
-                  {% for question in exam.fl.qs %}
-                  <li id="{{ forloop.counter }}" class="card">
-                    <div class="card-header">
-                      <i>{{ forloop.counter }} </i><span>({{ question.score }} Points) </span>
-                      <b>{{ question.title }}</b>
-                    </div>
-                    <div class="card-body">
-                      {% if question.compulsory == 0 %}
-                      <input type="text" class="form-control" placeholder="Input your answer here..." />
-                      {% else %}
-                      <input type="text" class="form-control" placeholder="Input your answer here..." required="required" />
-                      {% endif %}
-                    </div>
-                  </li>
-                  {% endfor %}
-                </ul>
+                <span class="flmerg">
+                </span>
 
               </div>
               <div class="card-footer" style="position: relative; bottom: auto; vertical-align: bottom; text-align: end; font-size: 12px; color: grey;">
@@ -124,34 +98,10 @@
               </div>
               <!--floating toolbar for submission-->
               <div id="toolbar" class="card" style="position: fixed; right: 40px; bottom: 100px; text-align: center; padding: 10px">
-                <p>Remaining Time:</p><b>
-                  <p id="remainingTime"></p>
-                </b>
                 <input type="submit" name="submit_button" style="color: red; padding: 6px; text-align: center; " value="SUBMIT" />
               </div>
             </div>
           </form>
-          <script>
-            var timeDiv = document.getElementById("remainingTime");
-            var timeObj = null;
-            var timeSec = {
-              {
-                timeInSec
-              }
-            };
-            // var timeSec = 100;
-
-            function timer() {
-              if (timeSec == 0) { // ends timing, force submitting
-                document.getElementById("answers").submit();
-                window.clearInterval(timeObj);
-                return;
-              }
-              timeDiv.innerHTML = Math.floor(timeSec / 60) + " mins " + timeSec % 60 + " secs";
-              timeSec--;
-            }
-            timeObj = window.setInterval(timer, 1000);
-          </script>
         </div>
       </div>
 
@@ -163,28 +113,61 @@
 
 </body>
 <script>
-  $(".mcmerg").html();
-  function expand() {
+  function mcexpand() {
+    $(".mcmerg").html();
     var a = '';
     for(var id=1; id<=document.getElementById("mcnum").value; id++) {
-      a += '<li id="' + id  + '" class="card">';
+      a += '<li id="' + id + '" class="card">';
       a += '<div class="card-header">';
       a += '<i>'+ id + ' </i><span>('+ document.getElementById("mcpoint").value + ' Points) </span>';
-      a += '<input type="text" name="mc"/>';
+      a += '<input type="text" name="mc" placeholder="Multiple Choice Question"/>';
       a += '</div>';
       a += '<div class="card-body">';
-      a += '<input type="radio" class="radioOrCheck" name="{{ test.id }}" value="A" style="padding-right=20px;"/>';
+      a += '<input type="radio" class="radioOrCheck" name="{{ question.id }}" value="A" style="padding-right=20px;"/>';
       a += '<label style="padding-right=20px;">A</label>';
-      a += '<input type="radio" class="radioOrCheck" name="{{ test.id }}" value="B" style="padding-right=20px;"/>';
+      a += '<input type="radio" class="radioOrCheck" name="{{ question.id }}" value="B" style="padding-right=20px;"/>';
       a += '<label style="padding-right=20px;">B</label>';
-      a += '<input type="radio" class="radioOrCheck" name="{{ test.id }}" value="C" style="padding-right=20px;"/>';
+      a += '<input type="radio" class="radioOrCheck" name="{{ question.id }}" value="C" style="padding-right=20px;"/>';
       a += '<label style="padding-right=20px;">C</label>';
-      a += '<input type="radio" class="radioOrCheck" name="{{ test.id }}" value="D" style="padding-right=20px;"/>';
+      a += '<input type="radio" class="radioOrCheck" name="{{ question.id }}" value="D" style="padding-right=20px;"/>';
       a += '<label style="padding-right=20px;">D</label>';
       a += '</div>';
       a += '</li>';
       $(".mcmerg").html(a);
     }
   }
+  function fbexpand() {
+    $(".fbmerg").html();
+    var a = '';
+    for(var id=1; id<=document.getElementById("fbnum").value; id++) {
+      a += '<li id="' + id + '" class="card">';
+      a += '<div class="card-header">';
+      a += '<i>'+ id + ' </i><span>('+ document.getElementById("fbpoint").value + ' Points) </span>';
+      a += '<input type="text" name="fb" placeholder="Fill-Blank Question"/>';
+      a += '</div>';
+      a += '<div class="card-body">';
+      a += '<a>Answer: </a><input type="text" name="{{ question.id }}" style="padding-right=20px;" placeholder="Stardard Answer here..."/>';
+      a += '</div>';
+      a += '</li>';
+      $(".fbmerg").html(a);
+    }
+  }
+  function flexpand() {
+    $(".flmerg").html();
+    var a = '';
+    for(var id=1; id<=document.getElementById("flnum").value; id++) {
+      a += '<li id="' + id + '" class="card">';
+      a += '<div class="card-header">';
+      a += '<i>'+ id + ' </i><span>('+ document.getElementById("flpoint").value + ' Points) </span>';
+      a += '<input type="text" name="fl" placeholder="Short Question"/>';
+      a += '</div>';
+      a += '<div class="card-body">';
+      a += '<a>Answer: <i>NO STANDARD ANSWER AVAILABLE</i></a>';
+      a += '</div>';
+      a += '</li>';
+      $(".flmerg").html(a);
+    }
+  }
+  
 </script>
 </html>
