@@ -42,7 +42,7 @@ def getExamPaper(request):
         # TODO:求补全& fix 这里 下一行的 time 是错误的！
         time = request.POST.get('time')  # time: a string HH:MM:SS
         timeInSec = 3600 * int(time[0:2]) + 60 * int(time[3:5]) + int(time[6:])  # 考试时间转成秒数
-
+        teacher=models.Teacher.objects.get(id=teaId)
         mc = {  # multiple choice
             'qs' : {
                 'score': int,
@@ -53,6 +53,7 @@ def getExamPaper(request):
                 'optionD': str,
             },
             # html 访问了 question.id, question.title, question.score, question.optionA, B, C, D
+            
             'qNum': int,
             'points': int,
         }
