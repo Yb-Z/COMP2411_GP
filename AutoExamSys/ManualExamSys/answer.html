@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="../static/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="../static/jquery-3.3.1.min.js"></script>
+  <script src="../static/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+  <link href="../static/css/index.css" rel="stylesheet">
+  <title>Taking Exam: {{ subject }}</title>
+</head>
+
+
+<body>
+
+
+  <nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <a target="view_window">
+      <span class="navbar-brand">
+        <img src="../static/img/polyu.gif" height="48" alt="PolyU Logo" style="vertical-align: -4px;">
+      </span>
+    </a>
+    <a target="view_window">
+      <span class="navbar-brand">
+        <img src="../static/img/estudent.png" height="48" alt="PolyU Logo" style="vertical-align: -4px;">
+      </span>
+    </a>
+  </nav>
+
+  <div class="main">
+    <!--nr start-->
+    <div class="test_main">
+      <div class="nr_left">
+        <div class="test">
+          <input type="hidden" id=duration value="{{ timeInSec }}"/>
+          <form id="answers" action="/calGrade/" method="post" style="padding: 10px;">
+            <div class="card">
+
+              <input type="hidden" name="sid" value="{{ student.id }}" />
+              <input type="hidden" name="subject" value="{{ subject }}" />
+              <div class="card-header">
+                Taking Exam: 19079784d COMP2411
+              </div>
+              <div class="card-body">
+                <!--card-body 容纳所有选区，包括单选填空问答-->
+                <!--单选-->
+                <div class="card-title">
+                  <h2>Multiple Choice</h2>
+                  <p>
+                    <span>In total of </span><u style="color: firebrick">1</u><span> Question(s),</span>
+                    <span>Worth </span><u style="color: firebrick">3</u><span> Point(s)</span>
+                  </p>
+                </div>
+                <ul>
+                  <li id="1" class="card">
+                    <div class="card-header">
+                      <i>1 </i><span>(3 Points) </span>
+                      <b>1+1=? A.1 B.2 C.3 D.4</b>
+                    </div>
+                    <div class="card-body">
+                      <input type="radio" class="radioOrCheck" name="{{ question.id }}" value="D" style="padding-right=20px;" required="required"/><label style="padding-right=20px;">A</label>
+                        
+                        <input type="radio" class="radioOrCheck" name="{{ question.id }}" value="D" style="padding-right=20px;"/><label style="padding-right=20px;">B</label>
+
+                        <input type="radio" class="radioOrCheck" name="{{ question.id }}" value="C" style="padding-right=20px;"/><label style="padding-right=20px;">C</label>
+
+                        <input type="radio" class="radioOrCheck" name="{{ question.id }}" value="D" style="padding-right=20px;"/><label style="padding-right=20px;">D</label>
+                        </div>
+                  </li><br>
+                </ul>
+                <!--填空-->
+                <div class="card-title">
+                  <h2>Fill in Blank</h2>
+                  <p>
+                    <span>In total of </span><u style="color: firebrick">2</u><span> Question(s),</span>
+                    <span>Worth </span><u style="color: firebrick">8</u><span> Point(s)</span>
+                  </p>
+                </div>
+                <ul>
+                  <li id="{{ forloop.counter }}" class="card">
+                    <div class="card-header">
+                      <i>2 </i><span>(5 Points) </span>
+                      <b>1+__=3?</b>
+                    </div>
+                    <div class="card-body">
+                      <input type="text" class="form-control" placeholder="Fill in the above blank..." />
+                    </div>
+                  </li><br>
+                </ul>
+                <ul>
+                  <li id="{{ forloop.counter }}" class="card">
+                    <div class="card-header">
+                      <i>3 </i><span>(3 Points) </span>
+                      <b>1+__=2?</b>
+                    </div>
+                    <div class="card-body">
+                      <input type="text" class="form-control" placeholder="Fill in the above blank..." />
+                    </div>
+                  </li><br>
+                </ul>
+                
+                <!--问答题-->
+                <div class="card-title">
+                  <h2>Q &amp; A</h2>
+                  <p>
+                    <span>In total of </span><u style="color: firebrick">1</u><span> Question(s),</span>
+                    <span>Worth </span><u style="color: firebrick">3</u><span> Point(s)</span>
+                  </p>
+                </div>
+                <ul>
+                  <li id="{{ forloop.counter }}" class="card">
+                    <div class="card-header">
+                      <i>4 </i><span>(3 Points) </span>
+                      <b>Who is Trump?</b>
+                    </div>
+                    <div class="card-body">
+                      <input type="text" class="form-control" placeholder="Input your answer here..." />
+                    </div>
+                  </li><br>
+                </ul>
+
+              </div>
+              <div class="card-footer" style="position: relative; bottom: auto; vertical-align: bottom; text-align: end; font-size: 12px; color: grey;">
+                Online Exam System Developed by Group 20: MAN Furui, WANG Meng, XING Shiji, ZHANG Yubo<br>
+                COMP2411 DataBase Systems, Year2020 Semester1, The Hong Kong Polytechnic University<br>
+              </div>
+              <!--floating toolbar for submission-->
+              <div id="toolbar" class="card" style="position: fixed; right: 40px; bottom: 100px; text-align: center; padding: 10px">
+                <p>Remaining Time:</p><b>
+                  <p id="remainingTime"></p>
+                </b>
+                <input type="submit" name="submit_button" style="color: red; padding: 6px; text-align: center; " value="SUBMIT" />
+              </div>
+            </div>
+          </form>
+          <script>
+            var timeDiv = document.getElementById("remainingTime");
+            var timeObj = null;
+            var timeSec = 100;
+
+            function timer() {
+              if (timeSec == 0) { // ends timing, force submitting
+                document.getElementById("answers").submit();
+                window.clearInterval(timeObj);
+                return;
+              }
+              timeDiv.innerHTML = Math.floor(timeSec / 60) + " mins " + timeSec % 60 + " secs";
+              timeSec--;
+            }
+            timeObj = window.setInterval(timer, 1000);
+          </script>
+        </div>
+      </div>
+
+    </div>
+    <!--nr end-->
+  </div>
+
+
+
+</body>
+
+</html>
