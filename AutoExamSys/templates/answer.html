@@ -33,6 +33,7 @@
     <div class="test_main">
       <div class="nr_left">
         <div class="test">
+          <input type="hidden" id=duration>{{ timeInSec }}</input>
           <form id="answers" action="/calGrade/" method="post" style="padding: 10px;">
             <div class="card">
 
@@ -68,7 +69,7 @@
                       <input type="radio" class="radioOrCheck" name="{{ question.id }}" value="D" style="padding-right=20px;"/>
                       <label style="padding-right=20px;">D</label>
                     </div>
-                  </li>
+                  </li><br>
                   {% endfor %}
                 </ul>
                 <!--填空-->
@@ -93,7 +94,7 @@
                       <input type="text" class="form-control" placeholder="Fill in the above blank..." required="required" />
                       {% endif %}
                     </div>
-                  </li>
+                  </li><br>
                   {% endfor %}
                 </ul>
                 <!--问答题-->
@@ -118,7 +119,7 @@
                       <input type="text" class="form-control" placeholder="Input your answer here..." required="required" />
                       {% endif %}
                     </div>
-                  </li>
+                  </li><br>
                   {% endfor %}
                 </ul>
 
@@ -139,11 +140,7 @@
           <script>
             var timeDiv = document.getElementById("remainingTime");
             var timeObj = null;
-            var timeSec = {
-              {
-                timeInSec
-              }
-            };
+            var timeSec = parseInt(document.getElementById("duration"));
             // var timeSec = 100;
 
             function timer() {
