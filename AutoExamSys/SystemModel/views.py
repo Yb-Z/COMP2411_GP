@@ -135,20 +135,26 @@ def subPrepare(request):
         }
 
         global idc
+        cid=request.POST.get('cid')
+        csn=1
+        p=models.Paper.objects.create(classId=cid,id=cid,date=request.POST.get('date'),startTime=request.POST.get('startTime'),duration=request.POST.get('duration'))
         for i in range(numOfQuestion[0]):
             q=models.Question.objects.create(id=idc,type='MC',content=questions['mc'][i],optional=compulsoryFlag['mc'][i],mark=points['mc'][i])
+            models.Contain.objects.create(csn=csn,qid=q,pid=p)
+            csn+=1
             models.Question_SA.objects.create(qid=q,SAContent=answer['mc'][i])
             idc+=1
         for i in range(numOfQuestion[1]):
             q=models.Question.objects.create(id=idc,type='FB',content=questions['fb'][i],optional=compulsoryFlag['fb'][i],mark=points['fb'][i])
+            models.Contain.objects.create(csn=csn,qid=q,pid=p)
+            csn+=1
             models.Question_SA.objects.create(qid=q,SAContent=answer['fb'][i])
             idc+=1
         for i in range(numOfQuestion[2]):
             q=models.Question.objects.create(id=idc,type='FL',content=questions['fl'][i],optional=compulsoryFlag['fl'][i],mark=points['fl'][i])
+            models.Contain.objects.create(csn=csn,qid=q,pid=p)
+            csn+=1
             idc+=1
-
-        # request.POST.get('cid') -> classID
-        # TODO: 保存到models
         
         flag=True
         if flag:  # 如果保存成功跳转到teacher
