@@ -2,18 +2,18 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../static/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../static/jquery-3.3.1.min.js"></script>
     <script src="../static/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
     <link href="../static/css/index.css" rel="stylesheet">
-	<title>Student Home</title>
+    <title>Student Home</title>
 </head>
 
 <body>
 
-	<nav class="navbar navbar-expand-sm bg-light navbar-light ">
+  <nav class="navbar navbar-expand-sm bg-light navbar-light ">
       <a href="https://www.polyu.edu.hk" target="view_window"><span class="navbar-brand">
           <img src="../static/img/polyu.gif" height="48" alt="PolyU Logo" style="vertical-align: -4px;">
       </span>
@@ -119,11 +119,21 @@
             <thead>
               <tr>
                 <th>Name</th>
+                <th>Student ID</th>
                 <th>Subject</th>
                 <th>Grade</th>
                 <th>Comment</th>
               </tr>
             </thead>
+            <tbody>
+                  <tr class="table-primary">
+                  <td>ZHANG Yubo</td>
+                  <td>19079784d</td>
+                  <td>COMP2411</td>
+                  <td>A+</td>
+                  <td>Excellent! Teacher Email:xxx@xxx.com</td>
+                </tr>
+            </tbody>
             <tbody>
               {% for result in results %}
                   <tr class="table-primary">
@@ -142,5 +152,7 @@
   <div id="logout" class="card" style="position: fixed; right: 40px; top: 22px; padding: 6px;">
     <a style="color: red;" href="/logout/"><b>LOGOUT</b></a>
   </div>
+  
 </body>
+
 </html>
