@@ -49,25 +49,25 @@
                   <h2>Multiple Choice</h2>
                   <p>
                     <span>In total of </span>
-                    <input id="mcnum" name="mcnum" type="number" onchange="expand()" step="1">
+                    <input id="mcnum" name="mcnum" type="number" onchange="expand()" step="1" min="1">
                     
                     <span> Question(s),</span>
                     <span>Worth </span>
-                    <input id="mcpoint" name="mcpoint" type="number" onchange="expand()">
+                    <input id="mcpoint" name="mcpoint" type="number" onchange="expand()" step="1" min="1">
                     <span> Point(s) each</span>
                   </p>
                 </div>
-                <div class="mcmerg">
-                </div>
+                <span class="mcmerg">
+                </span>
                 
                 <!--填空-->
                 <div class="card-title">
                   <h2>Fill in Blank</h2>
                   <p>
                     <span>In total of </span>
-                    <input name="mcnum" type="number"><span> Question(s),</span>
+                    <input name="fbnum" type="number"><span> Question(s),</span>
                     <span>Worth </span>
-                    <input name="mcpoint" type="number">
+                    <input name="fbpoint" type="number">
                     <span> Point(s) each</span>
                   </p>
                 </div>
@@ -163,12 +163,13 @@
 
 </body>
 <script>
-    var i = 0;
-    function expand() {
-      i++;
-      var a = '<li id="{{ forloop.counter }}" class="card">';
+  $(".mcmerg").html();
+  function expand() {
+    var a = '';
+    for(var id=1; id<=document.getElementById("mcnum").value; id++) {
+      a += '<li id="' + id  + '" class="card">';
       a += '<div class="card-header">';
-      a += '<i>'+ i + ' </i><span>('+ document.getElementById("mcpoint").value + ' Points) </span>';
+      a += '<i>'+ id + ' </i><span>('+ document.getElementById("mcpoint").value + ' Points) </span>';
       a += '<input type="text" name="mc"/>';
       a += '</div>';
       a += '<div class="card-body">';
@@ -182,8 +183,8 @@
       a += '<label style="padding-right=20px;">D</label>';
       a += '</div>';
       a += '</li>';
-      $(".mcmerg").clear;
-      $(".mcmerg").append(a);
+      $(".mcmerg").html(a);
     }
-  </script>
+  }
+</script>
 </html>
