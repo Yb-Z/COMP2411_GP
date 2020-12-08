@@ -136,7 +136,7 @@ class Take(models.Model):
         db_table='Take'
         verbose_name='Take'
         verbose_name_plural=verbose_name
-        unique_together=(("stuID","classID"))
+        unique_together=("stuID","classID")
     def __str__(self):
         return self.id;
 
@@ -161,7 +161,7 @@ class GetResult(models.Model):
         db_table='GetResult'
         verbose_name='GetResult'
         verbose_name_plural=verbose_name
-        unique_together=(("stuID","subjID"))
+        unique_together=("stuID","subjID")
     def __str__(self):
         return self.id;
 
@@ -233,6 +233,37 @@ class Question_SA(models.Model):
         db_table='Question_sa'
         verbose_name='Question_SA'
         verbose_name_plural=verbose_name
+        
+    def __str__(self):
+        return self.id;
+
+'''
+CREATE TABLE Answer
+(
+  AContent VARCHAR(2000) NOT NULL,
+  mark INT,
+  QID CHAR(16) NOT NULL,
+  PID CHAR(16) NOT NULL,
+  stuID CHAR(9) NOT NULL,
+  PRIMARY KEY (QID, PID, stuID),
+  FOREIGN KEY (QID) REFERENCES Question(QID),
+  FOREIGN KEY (PID) REFERENCES Paper(PID),
+  FOREIGN KEY (stuID) REFERENCES Student(stuID)
+);
+'''
+class Answer(models.Model):
+    AContent=models.CharField('AContent',max_length=2000)
+    AMark=models.IntegerField('AMark')
+    qid=models.ForeignKey('Question', on_delete=models.CASCADE)
+    pid=models.ForeignKey('Paper', on_delete=models.CASCADE)
+    stuID=models.ForeignKey('Student', on_delete=models.CASCADE)
+
+    class Meta:
+        db_table='Answer'
+        verbose_name='Answer'
+        verbose_name_plural=verbose_name
+        unique_together=("qid","pid","stuID")
+
     def __str__(self):
         return self.id;
 
