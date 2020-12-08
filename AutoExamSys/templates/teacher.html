@@ -90,12 +90,12 @@
                         <td>{{ subject.name }}</td>
                         <td>{{ subject.class }}</td>
                         <td>
-                            <a href="/startExam/?sid={{ teacher.id }}&subject={{ subject.class }}">
+                            <a href="/designExam/?sid={{ teacher.id }}&subject={{ subject.class }}">
                             <button class="btn btn-primary" id="toExam+{{ paper1.subject }}">Design Exam</button>
                             </a>
                         </td>
                         <td>
-                            <a href="/startExam/?sid={{ teacher.id }}&subject={{ paper1.subject }}">
+                            <a href="/markExam/?sid={{ teacher.id }}&subject={{ subject.class }}">
                             <button class="btn btn-primary" id="toExam+{{ paper1.subject }}">Mark Exam</button>
                             </a>
                         </td>

@@ -7,6 +7,7 @@
   <link href="../static/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="../static/jquery-3.3.1.min.js"></script>
   <script src="../static/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
   <link href="../static/css/index.css" rel="stylesheet">
   <title>Prepare Exam: {{ subject }}</title>
 </head>
@@ -39,7 +40,7 @@
               <input type="hidden" name="sid" value="{{ teacher.id }}" />
               <input type="hidden" name="subject" value="{{ subject }}" />
               <div class="card-header">
-                Taking Exam: {{ teacher.id }} {{ subject }}
+                Preparing Exam: {{ teacher.id }} {{ subject }}
               </div>
               <div class="card-body">
                 <!--card-body 容纳所有选区，包括单选填空问答-->
@@ -47,36 +48,27 @@
                 <div class="card-title">
                   <h2>Multiple Choice</h2>
                   <p>
-                    <span>In total of </span><u style="color: firebrick">{{ exam.mc.qNum }}</u><span> Question(s),</span>
-                    <span>Worth </span><u style="color: firebrick">{{ exam.mc.points }}</u><span> Point(s)</span>
+                    <span>In total of </span>
+                    <input id="mcnum" name="mcnum" type="number" onchange="expand()" step="1">
+                    
+                    <span> Question(s),</span>
+                    <span>Worth </span>
+                    <input id="mcpoint" name="mcpoint" type="number" onchange="expand()">
+                    <span> Point(s) each</span>
                   </p>
                 </div>
-                <ul>
-                  {% for question in exam.mc.qs %}
-                  <li id="{{ forloop.counter }}" class="card">
-                    <div class="card-header">
-                      <i>{{ forloop.counter }} </i><span>({{ question.score }} Points) </span>
-                      <b>{{ question.title }}</b>
-                    </div>
-                    <div class="card-body">
-                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="A" style="padding-right=20px;"/>
-                      <label style="padding-right=20px;">A</label>
-                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="B" style="padding-right=20px;"/>
-                      <label style="padding-right=20px;">B</label>
-                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="C" style="padding-right=20px;"/>
-                      <label style="padding-right=20px;">C</label>
-                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="D" style="padding-right=20px;"/>
-                      <label style="padding-right=20px;">D</label>
-                    </div>
-                  </li>
-                  {% endfor %}
-                </ul>
+                <div class="mcmerg">
+                </div>
+                
                 <!--填空-->
                 <div class="card-title">
                   <h2>Fill in Blank</h2>
                   <p>
-                    <span>In total of </span><u style="color: firebrick">{{ exam.fb.qNum }}</u><span> Question(s),</span>
-                    <span>Worth </span><u style="color: firebrick">{{ exam.fb.points }}</u><span> Point(s)</span>
+                    <span>In total of </span>
+                    <input name="mcnum" type="number"><span> Question(s),</span>
+                    <span>Worth </span>
+                    <input name="mcpoint" type="number">
+                    <span> Point(s) each</span>
                   </p>
                 </div>
                 <ul>
@@ -100,8 +92,11 @@
                 <div class="card-title">
                   <h2>Q &amp; A</h2>
                   <p>
-                    <span>In total of </span><u style="color: firebrick">{{ exam.fl.qNum }}</u><span> Question(s),</span>
-                    <span>Worth </span><u style="color: firebrick">{{ exam.fl.points }}</u><span> Point(s)</span>
+                    <span>In total of </span>
+                    <input name="mcnum" type="number"><span> Question(s),</span>
+                    <span>Worth </span>
+                    <input name="mcpoint" type="number">
+                    <span> Point(s) each</span>
                   </p>
                 </div>
                 <ul>
@@ -167,5 +162,28 @@
 
 
 </body>
-
+<script>
+    var i = 0;
+    function expand() {
+      i++;
+      var a = '<li id="{{ forloop.counter }}" class="card">';
+      a += '<div class="card-header">';
+      a += '<i>'+ i + ' </i><span>('+ document.getElementById("mcpoint").value + ' Points) </span>';
+      a += '<input type="text" name="mc"/>';
+      a += '</div>';
+      a += '<div class="card-body">';
+      a += '<input type="radio" class="radioOrCheck" name="{{ test.id }}" value="A" style="padding-right=20px;"/>';
+      a += '<label style="padding-right=20px;">A</label>';
+      a += '<input type="radio" class="radioOrCheck" name="{{ test.id }}" value="B" style="padding-right=20px;"/>';
+      a += '<label style="padding-right=20px;">B</label>';
+      a += '<input type="radio" class="radioOrCheck" name="{{ test.id }}" value="C" style="padding-right=20px;"/>';
+      a += '<label style="padding-right=20px;">C</label>';
+      a += '<input type="radio" class="radioOrCheck" name="{{ test.id }}" value="D" style="padding-right=20px;"/>';
+      a += '<label style="padding-right=20px;">D</label>';
+      a += '</div>';
+      a += '</li>';
+      $(".mcmerg").clear;
+      $(".mcmerg").append(a);
+    }
+  </script>
 </html>
