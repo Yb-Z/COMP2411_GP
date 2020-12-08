@@ -73,3 +73,40 @@ def startExam(request):
         "exam": exam
     }
     return render(request, './answer.html', data)
+    student=models.Student.objects.get(request.GET.get('sid'))
+    paper=models.Paper.objects.get(request.GET.get('paper'))
+
+def subPrepare(request):
+    if request.method == 'POST':
+        teacher = request.POST.get('tid')
+
+        numOfQuestion = [
+            int(request.POST.get('mcnum')),
+            int(request.POST.get('fbnum')),
+            int(request.POST.get('flnum'))
+        ]  # in order: mc, fb, fl
+        pointOfQuestion = [
+            int(request.POST.get('mcpoints')),
+            int(request.POST.get('fbpoints')),
+            int(request.POST.get('flpoints'))
+        ]
+
+        questions = { #需要修改
+            'mc': [request.POST.get('mc'+str(i+1)) for i in range(numOfQuestion[0])],
+            'fb': [request.POST.get('fb'+str(i+1)) for i in range(numOfQuestion[1])],
+            'fl': [request.POST.get('fl'+str(i+1)) for i in range(numOfQuestion[2])],
+        }
+
+        answer = { #需要修改
+            'mc': [request.POST.get('mcA'+str(i+1)) for i in range(numOfQuestion[0])],
+            'fb': [request.POST.get('fbA'+str(i+1)) for i in range(numOfQuestion[1])],
+        }
+
+
+        # TODO: 保存到models
+        
+
+        if flag:  # 如果保存成功跳转到teacher
+            return render(request,'./teacher.html',{'teacher':teacher})
+        else:
+            return render(request, './teacher.html', {'message': 'Wrong Password!'})
