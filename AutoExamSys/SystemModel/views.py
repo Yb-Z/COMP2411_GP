@@ -79,8 +79,23 @@ def startExam(request):
         "exam": exam
     }
     return render(request, './answer.html', data)
-    student=models.Student.objects.get(request.GET.get('sid'))
-    paper=models.Paper.objects.get(request.GET.get('paper'))
+    student = models.Student.objects.get(request.GET.get('sid'))
+    paper = models.Paper.objects.get(request.GET.get('paper'))
+    
+def startDesign(request):
+    tid = request.GET.get('tid')
+    subjID = request.GET.get('subject')
+    subject = models.Subject.objects.get(id=subjID)
+    teacher = models.Teacher.objects.get(id=tid)
+    Class = models.Class.objects.get(subjID_id=subjID,tid_id=tid)
+    paper = models.Paper.objects.get(classID=Class.id)
+    data = {
+        'teacher':teacher,
+        'subject':subject,
+        'class':Class
+    }
+    return render(request, './prepare.html', data)
+
 
 def subPrepare(request):
     if request.method == 'POST':
