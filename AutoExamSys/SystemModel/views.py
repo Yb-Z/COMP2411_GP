@@ -105,7 +105,7 @@ def subPrepare(request):
 
         # TODO: 保存到models
         
-
+        flag=True
         if flag:  # 如果保存成功跳转到teacher
             return render(request,'./teacher.html',{'teacher':teacher})
         else:

@@ -208,6 +208,7 @@ class Question(models.Model):
     type=models.CharField('Qtype',max_length=2)
     content=models.CharField('Qcontent',max_length=2000)
     optional=models.BooleanField('optional',default=True)
+    mark=models.IntegerField('Fullmark')
 
     class Meta:
         db_table='Question'
