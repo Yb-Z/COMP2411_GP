@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from AutoExamSys.SystemModel import views
+from SystemModel import views
 
 urlpatterns = [
     #管理员登陆
