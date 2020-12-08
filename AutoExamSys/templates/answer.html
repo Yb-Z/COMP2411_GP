@@ -59,27 +59,14 @@
                       <b>{{ question.title }}</b>
                     </div>
                     <div class="card-body">
-                      <ul>
-                        <li class="option">
-                          <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="A" />
-                          <label>A. <p class="ue" style="display: inline;">{{ question.optionA }}</p></label>
-                        </li>
-
-                        <li class="option">
-                          <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="B" />
-                          <label>B. <p class="ue" style="display: inline;">{{ question.optionB }}</p></label>
-                        </li>
-
-                        <li class="option">
-                          <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="C" />
-                          <label>C. <p class="ue" style="display: inline;">{{ question.optionC }}</p></label>
-                        </li>
-
-                        <li class="option">
-                          <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="D" />
-                          <label>D. <p class="ue" style="display: inline;">{{ question.optionD }}</p></label>
-                        </li>
-                      </ul>
+                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="A" style="padding-right=20px;"/>
+                      <label style="padding-right=20px;">A</label>
+                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="B" style="padding-right=20px;"/>
+                      <label style="padding-right=20px;">B</label>
+                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="C" style="padding-right=20px;"/>
+                      <label style="padding-right=20px;">C</label>
+                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="D" style="padding-right=20px;"/>
+                      <label style="padding-right=20px;">D</label>
                     </div>
                   </li>
                   {% endfor %}
@@ -113,12 +100,12 @@
                 <div class="card-title">
                   <h2>Q &amp; A</h2>
                   <p>
-                    <span>In total of </span><u style="color: firebrick">{{ exam.sq.qNum }}</u><span> Question(s),</span>
-                    <span>Worth </span><u style="color: firebrick">{{ exam.sq.points }}</u><span> Point(s)</span>
+                    <span>In total of </span><u style="color: firebrick">{{ exam.fl.qNum }}</u><span> Question(s),</span>
+                    <span>Worth </span><u style="color: firebrick">{{ exam.fl.points }}</u><span> Point(s)</span>
                   </p>
                 </div>
                 <ul>
-                  {% for question in exam.sq.qs %}
+                  {% for question in exam.fl.qs %}
                   <li id="{{ forloop.counter }}" class="card">
                     <div class="card-header">
                       <i>{{ forloop.counter }} </i><span>({{ question.score }} Points) </span>
@@ -181,8 +168,4 @@
 
 </body>
 
-<script>
-  $("#toExam+{{ paper1.subject }}").click(function() {
-
-  });
-</script></html>
+</html>

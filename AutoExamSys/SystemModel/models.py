@@ -190,6 +190,8 @@ class Paper(models.Model):
         verbose_name_plural=verbose_name
     def __str__(self):
         return self.id;
+    def getDurationInSec(self):
+        return 3600 * int(self.duration[0:2]) + 60 * int(self.duration[3:5]) + int(self.duration[6:8])
 
 '''
 CREATE TABLE Question

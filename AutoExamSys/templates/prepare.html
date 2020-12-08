@@ -8,7 +8,7 @@
   <script src="../static/jquery-3.3.1.min.js"></script>
   <script src="../static/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
   <link href="../static/css/index.css" rel="stylesheet">
-  <title>Taking Exam: {{ subject }}</title>
+  <title>Prepare Exam: {{ subject }}</title>
 </head>
 
 
@@ -33,13 +33,13 @@
     <div class="test_main">
       <div class="nr_left">
         <div class="test">
-          <form id="answers" action="/calGrade/" method="post" style="padding: 10px;">
+          <form id="answers" action="/subExam/" method="post" style="padding: 10px;">
             <div class="card">
 
-              <input type="hidden" name="sid" value="{{ student.id }}" />
+              <input type="hidden" name="sid" value="{{ teacher.id }}" />
               <input type="hidden" name="subject" value="{{ subject }}" />
               <div class="card-header">
-                Taking Exam: {{ student.id }} {{ subject }}
+                Taking Exam: {{ teacher.id }} {{ subject }}
               </div>
               <div class="card-body">
                 <!--card-body 容纳所有选区，包括单选填空问答-->
@@ -59,10 +59,14 @@
                       <b>{{ question.title }}</b>
                     </div>
                     <div class="card-body">
-                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="A" /><label>A</label>
-                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="B" /><label>B</label>
-                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="C" /><label>C</label>
-                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="D" /><label>D</label>
+                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="A" style="padding-right=20px;"/>
+                      <label style="padding-right=20px;">A</label>
+                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="B" style="padding-right=20px;"/>
+                      <label style="padding-right=20px;">B</label>
+                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="C" style="padding-right=20px;"/>
+                      <label style="padding-right=20px;">C</label>
+                      <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="D" style="padding-right=20px;"/>
+                      <label style="padding-right=20px;">D</label>
                     </div>
                   </li>
                   {% endfor %}
@@ -135,7 +139,12 @@
           <script>
             var timeDiv = document.getElementById("remainingTime");
             var timeObj = null;
-            var timeSec = 100;
+            var timeSec = {
+              {
+                timeInSec
+              }
+            };
+            // var timeSec = 100;
 
             function timer() {
               if (timeSec == 0) { // ends timing, force submitting
@@ -159,8 +168,4 @@
 
 </body>
 
-<script>
-  $("#toExam+{{ paper1.subject }}").click(function() {
-
-  });
-</script></html>
+</html>

@@ -39,50 +39,24 @@ def teacherLogin(request):
             
 def getExamPaper(request):
     if request.method == 'POST':
-        # TODO:求补全& fix 这里 下一行的 time 是错误的！
-        time = request.POST.get('time')  # time: a string HH:MM:SS
-        timeInSec = 3600 * int(time[0:2]) + 60 * int(time[3:5]) + int(time[6:])  # 考试时间转成秒数
-        teacher=models.Teacher.objects.get(id=teaId)
-        mc = {  # multiple choice
-            'qs' : {
-                'score': int,
-                'title': str,
-                'optionA': str,
-                'optionB': str,
-                'optionC': str,
-                'optionD': str,
-            },
-            # html 访问了 question.id, question.title, question.score, question.optionA, B, C, D
-            
-            'qNum': int,
-            'points': int,
-        }
-        fb = {  # fill in blank
-            'qs': [questions],  #FIXME: fix this
-            # html 访问了 question.id, question.title, question.score
-            'qNum': int,
-            'points': int,
-        }
-        sq = {  # standard questions
-            'qs': [questions],  #FIXME: fix this
-            # html 访问了 question.id, question.title, question.score
-            'qNum': int,
-            'points': int,
-        }
+        student = request.POST.get('student')  #FIXME:
+        subject = request.POST.get('student') #FIXME:
+        paperID = request.POST.get('examID')  #FIXME:
+        paper = models.Paper.objects.get(id=paperID)
+        # TODO:获取question并将question 分类： mc, fb, fl
 
         exam = {
-            "timeInSec": timeInSec,
-            "mc": mc,
-            "fb": fb,
-            "sq": sq,
-
+            "timeInSec": paper.getDurationInSec(), # 考试时间转成秒数 # time: 00h00m00s
+            "mc": .filter(type=mc),
+            "fb": .filter(type=fb),
+            "fl": .filter(type=fl),
         }
 
         data = {
-            "student": student, #FIXME: fix this
-            "subject":subject, #FIXME: fix this
+            "student": student,
+            "subject": subject,
             "exam": exam
-        } # TODO: 还有，记得加
+        }
         return render(request, './answer.html', data)
 
 def startExam(request):

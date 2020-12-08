@@ -34,10 +34,7 @@
             <a class="nav-link active" data-toggle="pill" href="#home">Personal information</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#menu1">Exam information</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="pill" href="#menu2">Exam result</a>
+            <a class="nav-link" data-toggle="pill" href="#menu1">Manage your subjects</a>
           </li>
         </ul>
       </div>
@@ -73,28 +70,33 @@
       </div> 
 
         <div id="menu1" class="container tab-pane fade"><br>
-            <h3>Subjects
-                <button data-target="#teaModal" data-toggle="modal" class="btn btn-primary">Add subjects</button>
-            </h3>
+            <h3>Your Subjects</h3>
             <table class="table">
                 <thead>
                     <tr>
+                            <th>Teacher ID</th>
                             <th>Subject ID</th>
-                            <th>Name</th>
+                            <th>Subject Name</th>
                             <th>Class</th>
-                            <th>Exams</th>
+                            <th>Design Exams</th>
+                            <th>Mark Exams</th>
                     </tr>
                 </thead>
                 {#   Iterate over paper #}
-                {% for paper1 in paper %}
+                {% for key,subject in subjects.items %}
                     <tr class="table-info">
                         <td>{{ teacher.id }}</td>
-                        <td>{{ teacher.name }}</td>
-                        <td>{{ paper1.subject }}{{ paper2.subject }}</td>
-                        <td>{{ paper1.examtime }} {{ paper2.examtime }}</td>
+                        <td>{{ subject.id }}</td>
+                        <td>{{ subject.name }}</td>
+                        <td>{{ subject.class }}</td>
+                        <td>
+                            <a href="/startExam/?sid={{ teacher.id }}&subject={{ subject.class }}">
+                            <button class="btn btn-primary" id="toExam+{{ paper1.subject }}">Design Exam</button>
+                            </a>
+                        </td>
                         <td>
                             <a href="/startExam/?sid={{ teacher.id }}&subject={{ paper1.subject }}">
-                            <button class="btn btn-primary" id="toExam+{{ paper1.subject }}">Start Exam</button>
+                            <button class="btn btn-primary" id="toExam+{{ paper1.subject }}">Mark Exam</button>
                             </a>
                         </td>
                     </tr>
