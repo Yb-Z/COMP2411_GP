@@ -5,7 +5,7 @@ from AutoExamSys.SystemModel import models
 from django.http import HttpResponse
 from django.contrib.auth import logout
 # Create your views here.
-
+idc=0
 
 def index(request):
     return render(request, "./index.html")
@@ -106,17 +106,24 @@ def subPrepare(request):
             'mc': [request.POST.get('mcA'+str(i+1)) for i in range(numOfQuestion[0])],
             'fb': [request.POST.get('fbA'+str(i+1)) for i in range(numOfQuestion[1])],
         }
-        idc = models.Question.Meta.id_count
+
+        compulsoryFlag ={
+            'mc':[request.POST.get('mcR'+str(i+1)) for i in range(numOfQuestion[0])],
+            'fb':[request.POST.get('fbR'+str(i+1)) for i in range(numOfQuestion[1])],
+            'fl':[request.POST.get('flR'+str(i+1)) for i in range(numOfQuestion[2])],
+        }
+
+        global idc
         for i in range(numOfQuestion[0]):
-            q=models.Question.objects.create(id=idc,type='MC',content=questions['mc'][i],optional=False,mark=points['mcP'][i])
+            q=models.Question.objects.create(id=idc,type='MC',content=questions['mc'][i],optional=compulsoryFlag['mc'][i],mark=points['mc'][i])
             models.Question_SA.objects.create(qid=q,SAContent=answer['mc'][i])
             idc+=1
         for i in range(numOfQuestion[1]):
-            q=models.Question.objects.create(id=idc,type='FB',content=questions['fb'][i],optional=False,mark=points['mcP'][i])
+            q=models.Question.objects.create(id=idc,type='FB',content=questions['fb'][i],optional=compulsoryFlag['fb'][i],mark=points['fb'][i])
             models.Question_SA.objects.create(qid=q,SAContent=answer['fb'][i])
             idc+=1
         for i in range(numOfQuestion[2]):
-            q=models.Question.objects.create(id=idc,type='FL',content=questions['fl'][i],optional=False,mark=points['mcP'][i])
+            q=models.Question.objects.create(id=idc,type='FL',content=questions['fl'][i],optional=compulsoryFlag['fl'][i],mark=points['fl'][i])
             idc+=1
 
         # TODO: 保存到models
