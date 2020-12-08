@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 # from SystemModel import models
 from SystemModel import models
-from AutoExamSys.SystemModel import models
+# from AutoExamSys.SystemModel import models
 from django.http import HttpResponse
 from django.contrib.auth import logout
 # Create your views here.
