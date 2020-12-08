@@ -11,6 +11,7 @@
   <title>Taking Exam: {{ subject }}</title>
 </head>
 
+
 <body>
 
 
@@ -35,8 +36,8 @@
           <form id="answers" action="/calGrade/" method="post" style="padding: 10px;">
             <div class="card">
 
-              <input type="hidden" name="sid" value="{{ student.id }}">
-              <input type="hidden" name="subject" value="{{ subject }}">
+              <input type="hidden" name="sid" value="{{ student.id }}" />
+              <input type="hidden" name="subject" value="{{ subject }}" />
               <div class="card-header">
                 Taking Exam: {{ student.id }} {{ subject }}
               </div>
@@ -99,7 +100,11 @@
                       <b>{{ question.title }}</b>
                     </div>
                     <div class="card-body">
-                      <input type="text" class="form-control" placeholder="Fill in the above blank...">
+                      {% if question.compulsory == 0 %}
+                      <input type="text" class="form-control" placeholder="Fill in the above blank..." />
+                      {% else %}
+                      <input type="text" class="form-control" placeholder="Fill in the above blank..." required="required" />
+                      {% endif %}
                     </div>
                   </li>
                   {% endfor %}
@@ -120,7 +125,11 @@
                       <b>{{ question.title }}</b>
                     </div>
                     <div class="card-body">
-                      <input type="text" class="form-control" placeholder="Input your answer here...">
+                      {% if question.compulsory == 0 %}
+                      <input type="text" class="form-control" placeholder="Input your answer here..." />
+                      {% else %}
+                      <input type="text" class="form-control" placeholder="Input your answer here..." required="required" />
+                      {% endif %}
                     </div>
                   </li>
                   {% endfor %}
@@ -133,15 +142,21 @@
               </div>
               <!--floating toolbar for submission-->
               <div id="toolbar" class="card" style="position: fixed; right: 40px; bottom: 100px; text-align: center; padding: 10px">
-                <p>Remaining Time:</p><b><p id="remainingTime"></p></b>
-                <input type="submit" name="submit_button" style="color: red; padding: 6px; text-align: center; " value="SUBMIT">
+                <p>Remaining Time:</p><b>
+                  <p id="remainingTime"></p>
+                </b>
+                <input type="submit" name="submit_button" style="color: red; padding: 6px; text-align: center; " value="SUBMIT" />
               </div>
             </div>
           </form>
           <script>
             var timeDiv = document.getElementById("remainingTime");
             var timeObj = null;
-            var timeSec = {{ timeInSec }};
+            var timeSec = {
+              {
+                timeInSec
+              }
+            };
             // var timeSec = 100;
 
             function timer() {

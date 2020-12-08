@@ -52,22 +52,19 @@ def getExamPaper(request):
                 'optionC': str,
                 'optionD': str,
             },
+            # html 访问了 question.id, question.title, question.score, question.optionA, B, C, D
             'qNum': int,
             'points': int,
         }
         fb = {  # fill in blank
-            'qs' : {
-                'score': int,
-                'title': str,
-            },
+            'qs': [questions],  #FIXME: fix this
+            # html 访问了 question.id, question.title, question.score
             'qNum': int,
             'points': int,
         }
         sq = {  # standard questions
-            'qs' : {
-                'score': int,
-                'title': str,
-            },
+            'qs': [questions],  #FIXME: fix this
+            # html 访问了 question.id, question.title, question.score
             'qNum': int,
             'points': int,
         }
