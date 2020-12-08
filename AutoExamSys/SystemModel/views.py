@@ -54,7 +54,7 @@ def teacherLogin(request):
 def getExamPaper(request):
     if request.method == 'POST':
         student = request.POST.get('student')  # FIXME:
-        subject = request.POST.get('student')  # FIXME:
+        subject = request.POST.get('subject')  # FIXME:
         paperID = request.POST.get('examID')  # FIXME:
         paper = models.Paper.objects.get(id=paperID)
         # TODO:获取question并将question 分类： mc, fb, fl
@@ -63,7 +63,7 @@ def getExamPaper(request):
 def startExam(request):
     student = models.Student.objects.get(request.GET.get('sid'))
     paper = models.Paper.objects.get(request.GET.get('paper'))
-    questions = models.Contain.objects.filter(pid==paper.id).order_by('csn')
+    questions = models.Contain.objects.filter(pid=paper.id).order_by('csn')
     subject=paper.classID.subjID
     questions = questions.qid
     exam = {

@@ -44,12 +44,20 @@
               </div>
               <div class="card-body">
                 <!--card-body 容纳所有选区，包括单选填空问答-->
+                <!--基础信息-->
+                <div class="card-title">
+                  <h2>Exam Info</h2>
+                  <p>
+                    <input id="exam_data" name="startTime" type="datetime-local"/>
+                    <input id="exam_data" name="duration" type="time"/>
+                  </p>
+                </div>
                 <!--单选-->
                 <div class="card-title">
                   <h2>Multiple Choice</h2>
                   <p>
                     <span>In total of </span>
-                    <input id="mcnum" name="mcnum" type="number" onchange='mcexpand()' step="1" min="1">
+                    <input id="mcnum" name="mcnum" type="number" onchange='mcexpand()' step="1" min="1"/>
                     <span> Question(s).</span>
                   </p>
                 </div>
@@ -61,7 +69,7 @@
                   <h2>Fill in Blank</h2>
                   <p>
                     <span>In total of </span>
-                    <input id="fbnum" name="fbnum" type="number" onchange="fbexpand()" step="1" min="1">
+                    <input id="fbnum" name="fbnum" type="number" onchange="fbexpand()" step="1" min="1"/>
                     
                     <span> Question(s).</span>
                   </p>
@@ -73,7 +81,7 @@
                   <h2>Q &amp; A</h2>
                   <p>
                     <span>In total of </span>
-                    <input id="flnum" name="flnum" type="number" onchange="flexpand()" step="1" min="1">
+                    <input id="flnum" name="flnum" type="number" onchange="flexpand()" step="1" min="1"/>
                     
                     <span> Question(s),</span>
                   </p>
