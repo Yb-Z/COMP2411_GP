@@ -1,14 +1,13 @@
 from django.shortcuts import render, redirect
-# from SystemModel import models
 from SystemModel import models
-# from AutoExamSys.SystemModel import models
+
 from django.http import HttpResponse
 from django.contrib.auth import logout
 # Create your views here.
 idc=0
 
-def index(request):
-    return render(request, "./index.html")
+def login(request):
+    return render(request, "./login.html")
 
 
 def studentLogin(request):
@@ -39,10 +38,17 @@ def teacherLogin(request):
 
         teacher = models.Teacher.objects.get(id=teaId)
         print(teacher)
-        if password == teacher.password:  # 登录成功
-            return render(request, './teacher.html', {'teacher': teacher})
+        if password==teacher.password:  #登录成功
+            return render(request,'./teacher.html',
+            {
+                'teacher':teacher,
+                'subjects':{
+                    'subject1':{'id':'COMP2411','name':'Database','class':'Class001'},
+                    'subejct2':{'id':'COMP2011','name':'Data Structure','class':'Class003'}
+                }
+            })
         else:
-            return render(request, './teacher.html', {'message': 'Wrong Password!'})
+            return render(request, './login.html', {'message': 'Wrong Password!'})
 
 
 def getExamPaper(request):
