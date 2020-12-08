@@ -214,6 +214,7 @@ class Question(models.Model):
         db_table='Question'
         verbose_name='Questions'
         verbose_name_plural=verbose_name
+        id_count=0
     def __str__(self):
         return self.id;
 
