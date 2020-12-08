@@ -88,7 +88,7 @@ def startDesign(request):
     subject = models.Subject.objects.get(id=subjID)
     teacher = models.Teacher.objects.get(id=tid)
     Class = models.Class.objects.get(subjID_id=subjID,tid_id=tid)
-    paper = models.paper.objects.get(classID=Class.id)
+    paper = models.Paper.objects.get(classID=Class.id)
     data = {
         'paper':paper,
         'teacher':teacher,
