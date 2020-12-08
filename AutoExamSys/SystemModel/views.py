@@ -54,7 +54,7 @@ def teacherLogin(request):
 def getExamPaper(request):
     if request.method == 'POST':
         student = request.POST.get('student')  # FIXME:
-        subject = request.POST.get('student')  # FIXME:
+        subject = request.POST.get('subject')  # FIXME:
         paperID = request.POST.get('examID')  # FIXME:
         paper = models.Paper.objects.get(id=paperID)
         # TODO:获取question并将question 分类： mc, fb, fl
@@ -63,7 +63,7 @@ def getExamPaper(request):
 def startExam(request):
     student = models.Student.objects.get(request.GET.get('sid'))
     paper = models.Paper.objects.get(request.GET.get('paper'))
-    questions = models.Contain.objects.filter(pid==paper.id).order_by('csn')
+    questions = models.Contain.objects.filter(pid=paper.id).order_by('csn')
     subject=paper.classID.subjID
     questions = questions.qid
     exam = {
@@ -82,22 +82,8 @@ def startExam(request):
     student=models.Student.objects.get(request.GET.get('sid'))
     paper=models.Paper.objects.get(request.GET.get('paper'))
 
-def startDesign(request):
-    tid = request.GET.get('tid')
-    subjID = request.GET.get('subject')
-    subject = models.Subject.objects.get(id=subjID)
-    teacher = models.Teacher.objects.get(id=tid)
-    Class = models.Class.objects.get(subjID_id=subjID,tid_id=tid)
-    paper = models.Paper.objects.get(classID=Class.id)
-    data = {
-        'teacher':teacher,
-        'subject':subject,
-        'class':Class
-    }
-    return render(request, './prepare.html', data)
-
 def subPrepare(request):
-    if request.method == 'POST':  
+    if request.method == 'POST':
         teacher = request.POST.get('tid')
 
         numOfQuestion = [
@@ -193,4 +179,4 @@ def markExam(request):
         if flag:  # 如果保存成功跳转到teacher
             return render(request, './grade.html', data)
         else:
-            return render(request, './teacher.html', {'teacher': teacher, 'message': 'Error'}) 
+            return render(request, './teacher.html', {'teacher': teacher, 'message': 'Error'})
