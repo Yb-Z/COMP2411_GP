@@ -25,5 +25,7 @@ urlpatterns = [
     url(r'^$',views.login),
     url(r'^studentLogin/',views.studentLogin),
     url(r'^teacherLogin/',views.teacherLogin),
-    url(r'^startExam/$',views.startExam),
+    url(r'^designExam/',views.subPrepare),
+    url(r'^markExam/',views.studentLogin),
+    url(r'^startExam/',views.startExam),
 ]
