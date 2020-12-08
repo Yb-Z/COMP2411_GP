@@ -49,9 +49,11 @@
                 <div class="card-title">
                   <h2>Exam Info</h2>
                   <p>
-                    <b>Date</b><input id="exam_data" name="date" type="date"/>
-                    <b>Start</b><input id="exam_data" name="startTime" type="time"/>
-                    <b>Duration</b><input id="exam_data" name="duration" type="time"/>
+                    <b> Date: </b><input id="exam_data" name="date" type="date"/>
+                    <b> Start: </b><input id="exam_data" name="startTime" type="time"/>
+                    <b> Duration: </b>
+                    <input id="exam_data" name="duration_hr" type="number" min="0" max="23" step="1"/><a> hr </a>
+                    <input id="exam_data" name="duration_min" type="number" min="0" max="59" step="1"/><a> min </a>
                   </p>
                 </div>
                 <!--单选-->
@@ -122,7 +124,7 @@
       a += '<div class="card-header">';
       a += '<i>'+id+' </i><span> (<input type="number" name="mcP'+id+'" min="1" max="100" step="1"/> Points) </span>';
       a += '<input class="submit" type="text" name="mc'+id+'" placeholder="Multiple Choice Question"/>';
-      a += '<a> Compulsory: </a><input required="required" type="checkbox" name="mcR'+id+'"/>'
+      a += '<a> Compulsory: </a><input type="checkbox" name="mcR'+id+'"/>'
       a += '</div>';
       a += '<div class="card-body"><a>Answer: </a>';
       a += '<input type="radio" class="radioOrCheck" name="mcA'+id+'" value="A" style="padding-right=20px;"/>';
@@ -146,7 +148,7 @@
       a += '<div class="card-header">';
       a += '<i>'+ id + ' </i><span>(<input name="fbP'+id+'" type="number" step="1" min="1" max="100"/> Points) </span>';
       a += '<input type="text" name="fb'+id+'" placeholder="Fill-Blank Question"/>';
-      a += '<a> Compulsory: </a><input required="required" type="checkbox" name="fbR'+id+'"/>'
+      a += '<a> Compulsory: </a><input type="checkbox" name="fbR'+id+'"/>'
       a += '</div>';
       a += '<div class="card-body">';
       a += '<a>Answer: </a><input type="text" name="fbA'+id+'" style="padding-right=20px;" placeholder="Stardard Answer here..."/>';
@@ -163,7 +165,7 @@
       a += '<div class="card-header">';
       a += '<i>'+ id + ' </i><span>(<input name="flP'+id+'" type="number" step="1" min="1" max="100"> Points) </span>';
       a += '<input type="text" name="fl'+id+'" placeholder="Short Question"/>';
-      a += '<a> Compulsory: </a><input required="required" type="checkbox" name="flR'+id+'"/>'
+      a += '<a> Compulsory: </a><input type="checkbox" name="flR'+id+'"/>'
       a += '</div>';
       a += '<div class="card-body">';
       a += '<a>Answer: <i>NO STANDARD ANSWER AVAILABLE</i></a>';

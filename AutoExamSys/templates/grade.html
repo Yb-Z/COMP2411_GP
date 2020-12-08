@@ -55,14 +55,14 @@
                   {% for question in exam.fl.qs %}
                   <li id="{{ forloop.counter }}" class="card">
                     <div class="card-header">
-                      <i>{{ forloop.counter }} </i><span>({{ question.score }} Points) </span>
+                      <i>{{ forloop.counter }} </i><span>({{ question.fullmark }} Points) </span>
                       <b>{{ question.title }}</b>
                     </div>
                     <div class="card-body">
                       <p>
                         {{ question.answer }}
                       </p>
-                      <b>Grade: </b><input name="{{ question.id }}" type="number" step="1" min="0" max="{{ question.score }}"/>
+                      <b>Grade: </b><input name="{{ question.id }}" type="number" step="1" min="0" max="{{ question.fullmark }}"/>
                     </div>
                   </li><br>
                   {% endfor %}
