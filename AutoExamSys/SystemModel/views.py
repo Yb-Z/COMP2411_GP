@@ -42,14 +42,51 @@ def getExamPaper(request):
         # TODO:求补全& fix 这里 下一行的 time 是错误的！
         time = request.POST.get('time')  # time: a string HH:MM:SS
         timeInSec = 3600 * int(time[0:2]) + 60 * int(time[3:5]) + int(time[6:])  # 考试时间转成秒数
-        data = {
-            'timeInSec': timeInSec
-            'student': subject
 
+        mc = {  # multiple choice
+            'qs' : {
+                'score': int,
+                'title': str,
+                'optionA': str,
+                'optionB': str,
+                'optionC': str,
+                'optionD': str,
+            },
+            'qNum': int,
+            'points': int,
+        }
+        fb = {  # fill in blank
+            'qs' : {
+                'score': int,
+                'title': str,
+            },
+            'qNum': int,
+            'points': int,
+        }
+        sq = {  # standard questions
+            'qs' : {
+                'score': int,
+                'title': str,
+            },
+            'qNum': int,
+            'points': int,
+        }
+
+        exam = {
+            "timeInSec": timeInSec,
+            "mc": mc,
+            "fb": fb,
+            "sq": sq,
+
+        }
+
+        data = {
+            "student": student, #FIXME: fix this
+            "subject":subject, #FIXME: fix this
+            "exam": exam
         } # TODO: 还有，记得加
         return render(request, './answer.html', data)
 
 def startExam(request):
     student=models.Student.objects.get(request.GET.get('sid'))
     paper=models.Paper.objects.get(request.GET.get('paper'))
-    

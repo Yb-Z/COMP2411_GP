@@ -34,79 +34,114 @@
         <div class="test">
           <form id="answers" action="/calGrade/" method="post" style="padding: 10px;">
             <div class="card">
+
               <input type="hidden" name="sid" value="{{ student.id }}">
               <input type="hidden" name="subject" value="{{ subject }}">
-              <div class="toolbar" style="position: fixed; right: 40px; bottom: 100px; text-align: center">
-                <p>Remaining Time:</p><b>
-                  <p id="remainingTime"></p>
-                </b>
-                <font><input type="submit" name="submit_button" style="color: red; padding: 6px; text-align: center; " value="SUBMIT"></font>
-              </div>
-
               <div class="card-header">
-                <h2>Multiple Choice</h2>
-                <p>
-                  <span>In total of </span><u style="color: firebrick"> 10 </u><span> Question(s),</span>
-                  <span>Worth </span><u style="color: firebrick"> 10 </u><span> Point(s)</span>
-                </p>
+                Taking Exam: {{ student.id }} {{ subject }}
               </div>
               <div class="card-body">
+                <!--card-body 容纳所有选区，包括单选填空问答-->
+                <!--单选-->
+                <div class="card-title">
+                  <h2>Multiple Choice</h2>
+                  <p>
+                    <span>In total of </span><u style="color: firebrick">{{ exam.mc.qNum }}</u><span> Question(s),</span>
+                    <span>Worth </span><u style="color: firebrick">{{ exam.mc.points }}</u><span> Point(s)</span>
+                  </p>
+                </div>
                 <ul>
-                  {% for paper1 in paper %} {% for test in paper1.pid.all %}
-                  <li id="{{ forloop.counter }}">
-                    <div class="test_content_nr_tt">
-                      <i>{{ forloop.counter }}</i><span>({{ test.score }}分)</span>
-                      <font>{{ test.title }}</font>
-
+                  {% for question in exam.mc.qs %}
+                  <li id="{{ forloop.counter }}" class="card">
+                    <div class="card-header">
+                      <i>{{ forloop.counter }} </i><span>({{ question.score }} Points) </span>
+                      <b>{{ question.title }}</b>
                     </div>
-                    <div class="test_content_nr_main">
+                    <div class="card-body">
                       <ul>
                         <li class="option">
                           <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="A" />
-                          <label>A.<p class="ue" style="display: inline;">{{ test.optionA }}</p>
-                          </label>
+                          <label>A. <p class="ue" style="display: inline;">{{ question.optionA }}</p></label>
                         </li>
 
                         <li class="option">
                           <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="B" />
-                          <label>
-                            B.<p class="ue" style="display: inline;">{{ test.optionB }}</p>
-                          </label>
+                          <label>B. <p class="ue" style="display: inline;">{{ question.optionB }}</p></label>
                         </li>
 
                         <li class="option">
                           <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="C" />
-                          <label>
-                            C.<p class="ue" style="display: inline;">{{ test.optionC }}</p>
-                          </label>
+                          <label>C. <p class="ue" style="display: inline;">{{ question.optionC }}</p></label>
                         </li>
 
                         <li class="option">
                           <input type="radio" class="radioOrCheck" name="{{ test.id }}" value="D" />
-                          <label>
-                            D.<p class="ue" style="display: inline;">{{ test.optionD }}</p>
-                          </label>
+                          <label>D. <p class="ue" style="display: inline;">{{ question.optionD }}</p></label>
                         </li>
                       </ul>
                     </div>
                   </li>
-                  {% endfor %} {% endfor %}
+                  {% endfor %}
                 </ul>
+                <!--填空-->
+                <div class="card-title">
+                  <h2>Fill in Blank</h2>
+                  <p>
+                    <span>In total of </span><u style="color: firebrick">{{ exam.fb.qNum }}</u><span> Question(s),</span>
+                    <span>Worth </span><u style="color: firebrick">{{ exam.fb.points }}</u><span> Point(s)</span>
+                  </p>
+                </div>
+                <ul>
+                  {% for question in exam.fb.qs %}
+                  <li id="{{ forloop.counter }}" class="card">
+                    <div class="card-header">
+                      <i>{{ forloop.counter }} </i><span>({{ question.score }} Points) </span>
+                      <b>{{ question.title }}</b>
+                    </div>
+                    <div class="card-body">
+                      <input type="text" class="form-control" placeholder="Fill in the above blank...">
+                    </div>
+                  </li>
+                  {% endfor %}
+                </ul>
+                <!--问答题-->
+                <div class="card-title">
+                  <h2>Q &amp; A</h2>
+                  <p>
+                    <span>In total of </span><u style="color: firebrick">{{ exam.sq.qNum }}</u><span> Question(s),</span>
+                    <span>Worth </span><u style="color: firebrick">{{ exam.sq.points }}</u><span> Point(s)</span>
+                  </p>
+                </div>
+                <ul>
+                  {% for question in exam.sq.qs %}
+                  <li id="{{ forloop.counter }}" class="card">
+                    <div class="card-header">
+                      <i>{{ forloop.counter }} </i><span>({{ question.score }} Points) </span>
+                      <b>{{ question.title }}</b>
+                    </div>
+                    <div class="card-body">
+                      <input type="text" class="form-control" placeholder="Input your answer here...">
+                    </div>
+                  </li>
+                  {% endfor %}
+                </ul>
+
               </div>
               <div class="card-footer" style="position: relative; bottom: auto; vertical-align: bottom; text-align: end; font-size: 12px; color: grey;">
                 Online Exam System Developed by Group 20: MAN Furui, WANG Meng, XING Shiji, ZHANG Yubo<br>
                 COMP2411 DataBase Systems, Year2020 Semester1, The Hong Kong Polytechnic University<br>
+              </div>
+              <!--floating toolbar for submission-->
+              <div id="toolbar" class="card" style="position: fixed; right: 40px; bottom: 100px; text-align: center; padding: 10px">
+                <p>Remaining Time:</p><b><p id="remainingTime"></p></b>
+                <input type="submit" name="submit_button" style="color: red; padding: 6px; text-align: center; " value="SUBMIT">
               </div>
             </div>
           </form>
           <script>
             var timeDiv = document.getElementById("remainingTime");
             var timeObj = null;
-            var timeSec = {
-              {
-                timeInSec
-              }
-            };
+            var timeSec = {{ timeInSec }};
             // var timeSec = 100;
 
             function timer() {
