@@ -92,6 +92,11 @@ def subPrepare(request):
         ]
 
         questions = { #需要修改
+            'mc': [request.POST.get('mc'+str(i+1)) for i in range(numOfQuestion[0])],
+            'fb': [request.POST.get('fb'+str(i+1)) for i in range(numOfQuestion[1])],
+            'fl': [request.POST.get('fl'+str(i+1)) for i in range(numOfQuestion[2])],
+        }
+        points = { #需要修改
             'mc': [request.POST.get('mcP'+str(i+1)) for i in range(numOfQuestion[0])],
             'fb': [request.POST.get('fbP'+str(i+1)) for i in range(numOfQuestion[1])],
             'fl': [request.POST.get('flP'+str(i+1)) for i in range(numOfQuestion[2])],
@@ -103,15 +108,15 @@ def subPrepare(request):
         }
         idc = models.Question.Meta.id_count
         for i in range(numOfQuestion[0]):
-            q=models.Question.objects.create(id=idc,type='MC',content=questions['mc'][i],optional=False,mark=0)
+            q=models.Question.objects.create(id=idc,type='MC',content=questions['mc'][i],optional=False,mark=points['mcP'][i])
             models.Question_SA.objects.create(qid=q,SAContent=answer['mc'][i])
             idc+=1
         for i in range(numOfQuestion[1]):
-            q=models.Question.objects.create(id=idc,type='FB',content=questions['fb'][i],optional=False,mark=0)
+            q=models.Question.objects.create(id=idc,type='FB',content=questions['fb'][i],optional=False,mark=points['mcP'][i])
             models.Question_SA.objects.create(qid=q,SAContent=answer['fb'][i])
             idc+=1
         for i in range(numOfQuestion[2]):
-            q=models.Question.objects.create(id=idc,type='FL',content=questions['fl'][i],optional=False,mark=0)
+            q=models.Question.objects.create(id=idc,type='FL',content=questions['fl'][i],optional=False,mark=points['mcP'][i])
             idc+=1
 
         # TODO: 保存到models
