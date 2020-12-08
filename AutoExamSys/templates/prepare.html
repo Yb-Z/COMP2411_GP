@@ -88,7 +88,7 @@
               </div>
               <!--floating toolbar for submission-->
               <div id="toolbar" class="card" style="position: fixed; right: 40px; bottom: 100px; text-align: center; padding: 10px">
-                <input type="submit" name="submit_button" style="color: red; padding: 6px; text-align: center; " value="SUBMIT" />
+                <input class="submit" type="submit" name="submit_button" value="SUBMIT" style="color: red; padding: 6px; text-align: center; "/>
               </div>
             </div>
           </form>
@@ -98,6 +98,7 @@
     </div>
     <!--nr end-->
   </div>
+  
 
 
 
@@ -109,8 +110,9 @@
     for(var id=1; id<=document.getElementById("mcnum").value; id++) {
       a += '<li id="'+id+'" class="card">';
       a += '<div class="card-header">';
-      a += '<i>'+id+' </i><span>(<input type="number" name="mcP'+id+'" min="1" max="100" step="1"/> Points) </span>';
-      a += '<input type="text" name="mc'+id+'" placeholder="Multiple Choice Question"/>';
+      a += '<i>'+id+' </i><span> (<input type="number" name="mcP'+id+'" min="1" max="100" step="1"/> Points) </span>';
+      a += '<input class="submit" type="text" name="mc'+id+'" placeholder="Multiple Choice Question"/>';
+      a += '<a> Compulsory: </a><input required="required" type="checkbox" name="mcR'+id+'"/>'
       a += '</div>';
       a += '<div class="card-body"><a>Answer: </a>';
       a += '<input type="radio" class="radioOrCheck" name="mcA'+id+'" value="A" style="padding-right=20px;"/>';
@@ -122,7 +124,7 @@
       a += '<input type="radio" class="radioOrCheck" name="mcA'+id+'" value="D" style="padding-right=20px;"/>';
       a += '<label style="padding=20px;">D</label>';
       a += '</div>';
-      a += '</li>';
+      a += '</li><br>';
       $(".mcmerg").html(a);
     }
   }
@@ -134,11 +136,12 @@
       a += '<div class="card-header">';
       a += '<i>'+ id + ' </i><span>(<input name="fbP'+id+'" type="number" step="1" min="1" max="100"/> Points) </span>';
       a += '<input type="text" name="fb'+id+'" placeholder="Fill-Blank Question"/>';
+      a += '<a> Compulsory: </a><input required="required" type="checkbox" name="fbR'+id+'"/>'
       a += '</div>';
       a += '<div class="card-body">';
       a += '<a>Answer: </a><input type="text" name="fbA'+id+'" style="padding-right=20px;" placeholder="Stardard Answer here..."/>';
       a += '</div>';
-      a += '</li>';
+      a += '</li><br>';
       $(".fbmerg").html(a);
     }
   }
@@ -150,11 +153,12 @@
       a += '<div class="card-header">';
       a += '<i>'+ id + ' </i><span>(<input name="flP'+id+'" type="number" step="1" min="1" max="100"> Points) </span>';
       a += '<input type="text" name="fl'+id+'" placeholder="Short Question"/>';
+      a += '<a> Compulsory: </a><input required="required" type="checkbox" name="flR'+id+'"/>'
       a += '</div>';
       a += '<div class="card-body">';
       a += '<a>Answer: <i>NO STANDARD ANSWER AVAILABLE</i></a>';
       a += '</div>';
-      a += '</li>';
+      a += '</li><br>';
       $(".flmerg").html(a);
     }
   }
