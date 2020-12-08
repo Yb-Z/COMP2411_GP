@@ -50,11 +50,7 @@
                   <p>
                     <span>In total of </span>
                     <input id="mcnum" name="mcnum" type="number" onchange='mcexpand()' step="1" min="1">
-                    
-                    <span> Question(s),</span>
-                    <span>Worth </span>
-                    <input id="mcpoint" name="mcpoint" type="number" onchange='mcexpand()' step="1" min="1">
-                    <span> Point(s) each</span>
+                    <span> Question(s).</span>
                   </p>
                 </div>
                 <span class="mcmerg">
@@ -67,10 +63,7 @@
                     <span>In total of </span>
                     <input id="fbnum" name="fbnum" type="number" onchange="fbexpand()" step="1" min="1">
                     
-                    <span> Question(s),</span>
-                    <span>Worth </span>
-                    <input id="fbpoint" name="fbpoint" type="number" onchange="fbexpand()" step="1" min="1">
-                    <span> Point(s) each</span>
+                    <span> Question(s).</span>
                   </p>
                 </div>
                 <span class="fbmerg">
@@ -83,9 +76,6 @@
                     <input id="flnum" name="flnum" type="number" onchange="flexpand()" step="1" min="1">
                     
                     <span> Question(s),</span>
-                    <span>Worth </span>
-                    <input id="flpoint" name="flpoint" type="number" onchange="flexpand()" step="1" min="1">
-                    <span> Point(s) each</span>
                   </p>
                 </div>
                 <span class="flmerg">
@@ -117,20 +107,20 @@
     $(".mcmerg").html();
     var a = '';
     for(var id=1; id<=document.getElementById("mcnum").value; id++) {
-      a += '<li id="' + id + '" class="card">';
+      a += '<li id="'+id+'" class="card">';
       a += '<div class="card-header">';
-      a += '<i>'+ id + ' </i><span>('+ document.getElementById("mcpoint").value + ' Points) </span>';
-      a += '<input type="text" name="mc" placeholder="Multiple Choice Question"/>';
+      a += '<i>'+id+' </i><span>(<input type="number" name="mcP'+id+'" min="1" max="100" step="1"/> Points) </span>';
+      a += '<input type="text" name="mc'+id+'" placeholder="Multiple Choice Question"/>';
       a += '</div>';
-      a += '<div class="card-body">';
-      a += '<input type="radio" class="radioOrCheck" name="{{ question.id }}" value="A" style="padding-right=20px;"/>';
-      a += '<label style="padding-right=20px;">A</label>';
-      a += '<input type="radio" class="radioOrCheck" name="{{ question.id }}" value="B" style="padding-right=20px;"/>';
-      a += '<label style="padding-right=20px;">B</label>';
-      a += '<input type="radio" class="radioOrCheck" name="{{ question.id }}" value="C" style="padding-right=20px;"/>';
-      a += '<label style="padding-right=20px;">C</label>';
-      a += '<input type="radio" class="radioOrCheck" name="{{ question.id }}" value="D" style="padding-right=20px;"/>';
-      a += '<label style="padding-right=20px;">D</label>';
+      a += '<div class="card-body"><a>Answer: </a>';
+      a += '<input type="radio" class="radioOrCheck" name="mcA'+id+'" value="A" style="padding-right=20px;"/>';
+      a += '<label style="padding=20px;">A</label>';
+      a += '<input type="radio" class="radioOrCheck" name="mcA'+id+'" value="B" style="padding-right=20px;"/>';
+      a += '<label style="padding=20px;">B</label>';
+      a += '<input type="radio" class="radioOrCheck" name="mcA'+id+'" value="C" style="padding-right=20px;"/>';
+      a += '<label style="padding=20px;">C</label>';
+      a += '<input type="radio" class="radioOrCheck" name="mcA'+id+'" value="D" style="padding-right=20px;"/>';
+      a += '<label style="padding=20px;">D</label>';
       a += '</div>';
       a += '</li>';
       $(".mcmerg").html(a);
@@ -142,11 +132,11 @@
     for(var id=1; id<=document.getElementById("fbnum").value; id++) {
       a += '<li id="' + id + '" class="card">';
       a += '<div class="card-header">';
-      a += '<i>'+ id + ' </i><span>('+ document.getElementById("fbpoint").value + ' Points) </span>';
-      a += '<input type="text" name="fb" placeholder="Fill-Blank Question"/>';
+      a += '<i>'+ id + ' </i><span>(<input name="fbP'+id+'" type="number" step="1" min="1" max="100"/> Points) </span>';
+      a += '<input type="text" name="fb'+id+'" placeholder="Fill-Blank Question"/>';
       a += '</div>';
       a += '<div class="card-body">';
-      a += '<a>Answer: </a><input type="text" name="{{ question.id }}" style="padding-right=20px;" placeholder="Stardard Answer here..."/>';
+      a += '<a>Answer: </a><input type="text" name="fbA'+id+'" style="padding-right=20px;" placeholder="Stardard Answer here..."/>';
       a += '</div>';
       a += '</li>';
       $(".fbmerg").html(a);
@@ -158,8 +148,8 @@
     for(var id=1; id<=document.getElementById("flnum").value; id++) {
       a += '<li id="' + id + '" class="card">';
       a += '<div class="card-header">';
-      a += '<i>'+ id + ' </i><span>('+ document.getElementById("flpoint").value + ' Points) </span>';
-      a += '<input type="text" name="fl" placeholder="Short Question"/>';
+      a += '<i>'+ id + ' </i><span>(<input name="flP'+id+'" type="number" step="1" min="1" max="100"> Points) </span>';
+      a += '<input type="text" name="fl'+id+'" placeholder="Short Question"/>';
       a += '</div>';
       a += '<div class="card-body">';
       a += '<a>Answer: <i>NO STANDARD ANSWER AVAILABLE</i></a>';
