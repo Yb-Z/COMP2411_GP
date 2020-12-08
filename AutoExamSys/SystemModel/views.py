@@ -90,9 +90,9 @@ def startDesign(request):
     Class = models.Class.objects.get(subjID_id=subjID,tid_id=tid)
     paper = models.Paper.objects.get(classID=Class.id)
     data = {
-        'paper':paper,
         'teacher':teacher,
-        'subject':subject
+        'subject':subject,
+        'class':Class
     }
     return render(request, './prepare.html', data)
 
