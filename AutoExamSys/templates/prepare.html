@@ -38,6 +38,7 @@
             <div class="card">
 
               <input type="hidden" name="tid" value="{{ teacher.id }}" />
+              <input type="hidden" name="cid" value="{{ class.id }}" />
               <input type="hidden" name="subject" value="{{ subject }}" />
               <div class="card-header">
                 Preparing Exam: {{ teacher.id }} {{ subject }}
@@ -48,8 +49,9 @@
                 <div class="card-title">
                   <h2>Exam Info</h2>
                   <p>
-                    <input id="exam_data" name="startTime" type="datetime-local"/>
-                    <input id="exam_data" name="duration" type="time"/>
+                    <b>Date</b><input id="exam_data" name="date" type="date"/>
+                    <b>Start</b><input id="exam_data" name="startTime" type="time"/>
+                    <b>Duration</b><input id="exam_data" name="duration" type="time"/>
                   </p>
                 </div>
                 <!--单选-->

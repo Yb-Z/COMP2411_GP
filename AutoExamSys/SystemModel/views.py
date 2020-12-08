@@ -132,11 +132,12 @@ def subPrepare(request):
             q=models.Question.objects.create(id=idc,type='FL',content=questions['fl'][i],optional=compulsoryFlag['fl'][i],mark=points['fl'][i])
             idc+=1
 
+        # request.POST.get('cid') -> classID
         # TODO: 保存到models
         
         flag=True
         if flag:  # 如果保存成功跳转到teacher
-            return render(request,'./teacher.html',{'teacher':teacher})
+            return render(request, './teacher.html', {'teacher':teacher})
         else:
             return render(request, './teacher.html', {'message': 'Wrong Password!'})
 
