@@ -56,7 +56,6 @@ def getExamPaper(request):
 
 def startExam(request):
     student = models.Student.objects.get(request.GET.get('sid'))
-    questions = mod
     paper = models.Paper.objects.get(request.GET.get('paper'))
     questions = models.Contain.objects.filter(pid==paper.id).order_by('csn')
     subject=paper.classID.subjID
