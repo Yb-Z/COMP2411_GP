@@ -133,3 +133,43 @@ def subPrepare(request):
             return render(request,'./teacher.html',{'teacher':teacher})
         else:
             return render(request, './teacher.html', {'message': 'Wrong Password!'})
+
+def subGrade(request):
+    if request.method == 'POST':
+        teacher = request.POST.get('tid')
+        subject = request.POST.get('subject')
+
+        # TODO: 保存到数据库
+        for question in questionList:
+            q_score = request.POST.get(question.id)
+            #TODO:
+        
+        
+        flag=True
+        if flag:  # 如果保存成功跳转到teacher
+            return render(request,'./teacher.html',{'teacher':teacher})
+        else:
+            return render(request, './teacher.html', {'message': 'Wrong Password!'})
+
+def markExam(request):
+    '''
+    从teacher.html跳转到grade.html
+    '''
+    if request.method == 'POST':
+        teacher = request.POST.get('tid')
+        subject = request.POST.get('subject')
+
+        # Filter 到 FL questions
+        # 用到了question.id question.answer 和 question.title question.score
+
+        data = {
+            'teacher': teacher,
+            'subject': subject,
+            'question': question
+        }
+        
+        flag=True
+        if flag:  # 如果保存成功跳转到teacher
+            return render(request, './grade.html', data)
+        else:
+            return render(request, './teacher.html', {'teacher': teacher, 'message': 'Error'})

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="../static/bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="../static/jquery-3.3.1.min.js"></script>
+  <script src="../static/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+  <link href="../static/css/index.css" rel="stylesheet">
+  <title>Grading Exam: {{ subject }}</title>
+</head>
+
+
+<body>
+
+
+  <nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <a target="view_window">
+      <span class="navbar-brand">
+        <img src="../static/img/polyu.gif" height="48" alt="PolyU Logo" style="vertical-align: -4px;">
+      </span>
+    </a>
+    <a target="view_window">
+      <span class="navbar-brand">
+        <img src="../static/img/estudent.png" height="48" alt="PolyU Logo" style="vertical-align: -4px;">
+      </span>
+    </a>
+  </nav>
+
+  <div class="main">
+    <!--nr start-->
+    <div class="test_main">
+      <div class="nr_left">
+        <div class="test">
+          <form id="answers" action="/subGrade/" method="post" style="padding: 10px;">
+            <div class="card">
+              <input type="hidden" name="sid" value="{{ student.id }}" />
+              <input type="hidden" name="tid" value="{{ teacher.id }}" />
+              <input type="hidden" name="subject" value="{{ subject }}" />
+              <div class="card-header">
+                Grading Exam: {{ teacher.id }} {{ subject }}
+              </div>
+              <div class="card-body">
+                <!--card-body 容纳所有选区，包括单选填空问答-->
+                <!--问答题-->
+                <div class="card-title">
+                  <h2>Q &amp; A</h2>
+                  <p>
+                    <span>In total of </span><u style="color: firebrick">{{ exam.fl.qNum }}</u><span> Question(s),</span>
+                    <span>Worth </span><u style="color: firebrick">{{ exam.fl.points }}</u><span> Point(s)</span>
+                  </p>
+                </div>
+                <ul>
+                  {% for question in exam.fl.qs %}
+                  <li id="{{ forloop.counter }}" class="card">
+                    <div class="card-header">
+                      <i>{{ forloop.counter }} </i><span>({{ question.score }} Points) </span>
+                      <b>{{ question.title }}</b>
+                    </div>
+                    <div class="card-body">
+                      <p>
+                        {{ question.answer }}
+                      </p>
+                      <b>Grade: </b><input name="{{ question.id }}" type="number" step="1" min="0" max="{{ question.score }}"/>
+                    </div>
+                  </li><br>
+                  {% endfor %}
+                </ul>
+
+              </div>
+              <div class="card-footer" style="position: relative; bottom: auto; vertical-align: bottom; text-align: end; font-size: 12px; color: grey;">
+                Online Exam System Developed by Group 20: MAN Furui, WANG Meng, XING Shiji, ZHANG Yubo<br>
+                COMP2411 DataBase Systems, Year2020 Semester1, The Hong Kong Polytechnic University<br>
+              </div>
+              <!--floating toolbar for submission-->
+              <div id="toolbar" class="card" style="position: fixed; right: 40px; bottom: 100px; text-align: center; padding: 10px">
+                <p>Complete Grading</p>
+                <input type="submit" name="submit_button" style="color: red; padding: 6px; text-align: center; " value="SUBMIT" />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <!--nr end-->
+  </div>
+
+
+
+</body>
+
+</html>
