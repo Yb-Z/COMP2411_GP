@@ -10,6 +10,6 @@
     "\\AutoExamSys\\SystemModel",
     "\\AutoExamSys\\templates"
   ],
-  "SelectedNode": "\\AutoExamSys\\AutoExamSys\\urls.py",
+  "SelectedNode": "\\AutoExamSys\\SystemModel\\views.py",
   "PreviewInSolutionExplorer": false
 }
